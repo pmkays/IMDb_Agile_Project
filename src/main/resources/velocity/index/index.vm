@@ -15,4 +15,10 @@
     <input type="text" name="showActorSearch" placeholder="ActorName" value="" required>
     <input type="submit" value="Search">
 </form>
+
+<form method="get">
+  Click to see about robert deniro!
+  <input type = "hidden" name = "actor" value = 1></input>
+  <button type="submit">Robert</button>
+</form>
 #end

@@ -1,0 +1,9 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+<h1>Robert Deniro</h1>
+${actor.getFullName()} is an ${actor.getRole()} born on ${actor.getBirthdate()}. 
+</br>
+${actor.getBio()}
+
+#end
