@@ -62,7 +62,7 @@ CREATE TABLE `credits_roll` (
   PRIMARY KEY (`show_id`,`person_id`),
   KEY `fk_person_idx` (`person_id`),
   CONSTRAINT `fk_person` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`),
-  CONSTRAINT `fk_show` FOREIGN KEY (`show_id`) REFERENCES `show` (`showid`)
+  CONSTRAINT `fk_show` FOREIGN KEY (`show_id`) REFERENCES `show` (`show_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -135,7 +135,7 @@ DROP TABLE IF EXISTS `show`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `show` (
-  `showid` int(11) NOT NULL AUTO_INCREMENT,
+  `show_id` int(11) NOT NULL AUTO_INCREMENT,
   `show_title` varchar(45) NOT NULL,
   `genre` varchar(45) NOT NULL,
   `length` decimal(3,2) NOT NULL,
@@ -143,7 +143,8 @@ CREATE TABLE `show` (
   `series` int(11) NOT NULL DEFAULT '0',
   `proco_id` int(11) NOT NULL,
   `year` int(4) NOT NULL DEFAULT '2020',
-  PRIMARY KEY (`showid`),
+  `synopsis` varchar(1000) NOT NULL,
+  PRIMARY KEY (`show_id`),
   KEY `fk_proco_idx` (`proco_id`),
   CONSTRAINT `fk_proco` FOREIGN KEY (`proco_id`) REFERENCES `production_company` (`proco_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -155,9 +156,56 @@ CREATE TABLE `show` (
 
 LOCK TABLES `show` WRITE;
 /*!40000 ALTER TABLE `show` DISABLE KEYS */;
-INSERT INTO `show` VALUES (1,'Star Wars: Episode IX - The Rise of Skywalker','Action',2.22,1,0,9,2019);
+INSERT INTO `show` VALUES (1,'Star Wars: Episode IX - The Rise of Skywalker','Action',2.22,1,0,9,2019,'Star Wars');
 /*!40000 ALTER TABLE `show` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+--
+-- Table structure for table `show_image`
+--
+
+DROP TABLE IF EXISTS `show_image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `show_image` (
+  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(250) NOT NULL,
+  PRIMARY KEY (`image_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `actor_image`
+--
+
+DROP TABLE IF EXISTS `actor_image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `actor_image` (
+  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(250) NOT NULL,
+  PRIMARY KEY (`image_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for relation `show_image_show`
+--
+
+DROP TABLE IF EXISTS `show_image_show`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `show_image_show` (
+  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(250) NOT NULL,
+  `show_id` int(11) NOT NULL,
+  PRIMARY KEY (`image_id`),
+  CONSTRAINT `fk_showx` FOREIGN KEY (`show_id`) REFERENCES `show` (`show_id`),
+  CONSTRAINT `fk_show_image` FOREIGN KEY (`image_id`) REFERENCES `show_image` (`image_id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `user_review`
@@ -174,9 +222,9 @@ CREATE TABLE `user_review` (
   `review` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`reviewId`),
-  KEY `fk_showid_idx` (`show_id`),
+  KEY `fk_show_id_idx` (`show_id`),
   KEY `fk_username_idx` (`user_id`),
-  CONSTRAINT `fk_showid` FOREIGN KEY (`show_id`) REFERENCES `show` (`showid`),
+  CONSTRAINT `fk_show_id` FOREIGN KEY (`show_id`) REFERENCES `show` (`show_id`),
   CONSTRAINT `fk_username` FOREIGN KEY (`user_id`) REFERENCES `account` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
