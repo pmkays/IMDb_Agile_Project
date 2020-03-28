@@ -44,12 +44,17 @@ public class PersonDAO {
         return null;
     }
 	
-	public ActorImage getPersonImageByPersonId(int personID) {
+	public static List<Person> getAllPersonsByNameFilter(String filter) {
+		//TO DO. Low priority.
+		return null;
+	}
+	
+	public static ActorImage getPersonImageByPersonId(int personID) {
 		//TO DO
 		return null;
 	}
 	
-	public List<CreditsRoll> getCreditsRollByPersonId(int personID) {
+	public static List<CreditsRoll> getCreditsRollByPersonId(int personID) {
 		//TO DO
 		return null;
 	}

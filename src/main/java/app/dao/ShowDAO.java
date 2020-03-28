@@ -45,6 +45,17 @@ public class ShowDAO {
         return null;
     }
     
+
+	public static List<Show> getAllShowsByTitleFilter(String filter) {
+		//TO DO LUKE
+		return null;
+	}
+	
+	public static List<Show> getAllShowsByPersonFilter(String filter) {
+		//TO DO MATT
+		return null;
+	}
+    
 	public static ShowImage getShowImageByShowId(String personID) {
 		//TO DO
 		return null;
@@ -59,7 +70,6 @@ public class ShowDAO {
 		//TO DO
 		return null;
 	}
-
 
 
 }
