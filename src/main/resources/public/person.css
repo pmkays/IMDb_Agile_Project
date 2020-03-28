@@ -1,0 +1,62 @@
+.body{
+	border: 1px solid #F6F6F5;
+	border-radius: 5px;
+}
+
+h3{
+	margin: 5px;
+	margin-left: 0px;
+}
+.table{
+	border-collapse: collapse;
+  	width: 100%;
+}
+
+th{
+	text-align: left;
+}
+
+td{
+	padding: 10px;
+}
+
+tr:nth-child(even) {
+  	background-color: #F6F6F5;
+}
+
+tr:nth-child(odd) {
+  	background-color: #fafafa;
+}
+
+.section{
+	border: 1px solid #F6F6F5;
+	padding: 10px;
+	width: 65%;
+}
+
+.filmography{
+	border: 1px solid #F6F6F5;
+	padding: 10px;
+	width: 100%;
+}
+
+.bio{
+	background-color: #F6F6F5;
+	border: 1px solid #F6F6F5;
+	border-radius: 5px;
+	padding: 10px;
+	line-height: 20px;
+}
+
+/* .image{
+	
+
+} */
+
+.photo{
+	float: right;
+	width: 35%;
+	height: 35%;
+	padding-top: 15px;
+	padding-left: 10px;
+}

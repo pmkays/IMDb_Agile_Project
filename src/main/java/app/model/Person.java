@@ -10,38 +10,35 @@ public class Person {
     private int personId;
     private String fullName;
     private String role;
-    private String bio;
     private Date birthdate;
+    private String bio;
 
-
-
-
-    public Person(int id, String fn, String r, Date bd, String b) {
-        personId = id;
-        fullName = fn;
-        role = r;
-        birthdate = bd;
+    public Person(int id, String fullName, String role, Date bday, String bio) {
+        this.personId = id;
+        this.fullName = fullName;
+        this.role = role;
+        this.birthdate = bday;
+        this.bio = bio;
     }
-
-
-
-    public String getRole() {
-        return role;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
+    
+    public int getPersonId() {
+        return this.personId;
     }
 
     public String getFullName() {
-        return fullName;
+        return this.fullName;
     }
 
-    public int getPersonId() {
-        return personId;
+    public String getRole() {
+        return this.role;
     }
-
+    
+    public Date getBirthdate() {
+        return this.birthdate;
+    }
+    
     public String getBio() {
-        return bio;
+        return this.bio;
     }
+
 }

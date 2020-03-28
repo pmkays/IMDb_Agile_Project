@@ -40,6 +40,7 @@ public class Main {
             get(Web.ACCOUNT, AccountController.serveAccountPage);
             get(Web.SHOW, ShowController.serveShowPage);
             get(Web.USER_REVIEW, UserReviewController.serveReviewPage);
+         
 
             // Add new actions here
             // Seeing pages (get) and sending information in forms (post)

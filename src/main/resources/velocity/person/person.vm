@@ -1,0 +1,92 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+	<link rel="stylesheet" href="/person.css">
+</head>
+<body class = "body">
+	<h1>Robert Deniro</h1>
+		<div class = "image">
+			<img class = "photo" src = "https://upload.wikimedia.org/wikipedia/commons/0/0a/Scott_Morrison_2014.jpg" alt = "actor image">
+		</div>
+		<div class = "section">
+			<h3>Overview</h3>
+			<table class = "table">
+				<tr>
+					<th> Full name </th>
+					<td> ${actor.getFullName()} </td>
+				</tr>
+					<th> Birth date</th>
+					<td> ${actor.getBirthdate()}  </td>
+				<tr>
+					<th> Role </th>
+					<td>${actor.getRole()}</td>
+				</tr>
+			</table>
+		</div>
+	<div class = "section">
+		<h3>Biography</h3>
+		<div class = "bio">
+			${actor.getBio()}
+		</div>
+	</div>
+	<div class = "filmography">
+		<h3>Filmography</h3>
+		<div class = "credits">
+			
+			<table class = "table">
+				<tr>
+					<th> Film </th>
+					<th> Role </th>
+					<th> Character </th>
+					<th> Year </th>
+				</tr>
+				<tr>
+					<td> Yeeting off to Hawaii </td>
+					<td> Actor </td>
+					<td> Crap PM </td>
+					<td> 2019 - 2020 </td>
+				</tr>
+				<tr>
+					<td> Ignoring the hot flame bois </td>
+					<td> Actor </td>
+					<td> Ridiculous PM </td>
+					<td> 2020 </td>
+				</tr>
+				<tr>
+					<td> Social distancing </td>
+					<td> Actor </td>
+					<td> Late PM </td>
+					<td> 2020 </td>
+				</tr>
+				<tr>
+					<td> Social distancing </td>
+					<td> Actor </td>
+					<td> Late PM </td>
+					<td> 2020 </td>
+				</tr>
+				<tr>
+					<td> Social distancing </td>
+					<td> Actor </td>
+					<td> Late PM </td>
+					<td> 2020 </td>
+				</tr>
+				<tr>
+					<td> Social distancing </td>
+					<td> Actor </td>
+					<td> Late PM </td>
+					<td> 2020 </td>
+				</tr>
+				<!--#foreach( $credit in ${credits} )
+			    <tr>
+					<td> ${credit.getFilm()}</td>
+					<td> ${credit.getRole()}</td>
+					<td> ${credit.getCharacter()} </td>
+					<td> ${credit.getStartYear()}-${credit.getStartYear()}</td>
+				</tr>
+			 	#end -->
+			</table>
+		</div>
+	</div>
+</body>
+
+#end
