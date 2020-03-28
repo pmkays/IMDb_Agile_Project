@@ -1,4 +1,16 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
+<div style = "background-color:#333333; color: white;">
+<h2 style = "color: white; display: inline-block;">${show.getShowTitle()}</h2>
+<h4 style = "color: white; display: inline-block;">(${show.getYear()})</h4>
 
+<div>
+<h4 style = "color: white; display: inline-block;">${show.getLength()}</h4>
+<h4 style = "color: white; display: inline-block;">${show.getGenre()}</h4>
+</div></div>
+
+<div>
+<h1>Synopsis:</h1>
+<p>${show.getSynopsis()}</p>
+</div>
 #end

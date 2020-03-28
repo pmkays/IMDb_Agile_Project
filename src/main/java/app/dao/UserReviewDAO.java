@@ -1,20 +1,18 @@
 package app.dao;
 
-import app.dao.utils.DatabaseUtils;
-import app.model.Account;
-import app.model.Show;
-import org.eclipse.collections.impl.list.mutable.FastList;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import app.dao.utils.DatabaseUtils;
+import app.model.Show;
+import app.model.UserReview;
 
 
 
-public class ShowDAO {
+public class UserReviewDAO {
     public static final String SALT = "$2a$10$h.dl5J86rGH7I8bD9bZeZe";
 
 
@@ -28,14 +26,13 @@ public class ShowDAO {
      * @return Some of the user data to check on the password. Null if there
      *         no matching user.
      */
-    public static Show getShowByID(String showid) {
+    public static UserReview getReviewByID(String reviewID) {
         // Fish out the results
-        List<Show> shows = new ArrayList<>();
+        List<UserReview> userReviews = new ArrayList<>();
 
         try {
             // Here you prepare your sql statement
-//        	show_id, show_title, genre, length, movie, series, proco_id, year, synopsis
-            String sql = "SELECT * FROM `show` WHERE show_id =" + showid;
+            String sql = "SELECT * FROM user_review WHERE reviewId =" + reviewID;
 
             // Execute the query
             Connection connection = DatabaseUtils.connectToDatabase();
@@ -45,11 +42,9 @@ public class ShowDAO {
             // If you have multiple results, you do a while
             while(result.next()) {
                 // 2) Add it to the list we have prepared
-                shows.add(
+                userReviews.add(
                   // 1) Create a new account object                			
-                  new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
-                		  result.getBoolean("movie"), result.getBoolean("series"), result.getString("genre"),
-                		  result.getInt("year"), result.getString("synopsis"))
+                  new UserReview(result.getString("review"), result.getInt("rating"))
                 );
             }
 
@@ -62,7 +57,7 @@ public class ShowDAO {
 
 
         // If there is a result
-        if(!shows.isEmpty()) return shows.get(0);
+        if(!userReviews.isEmpty()) return userReviews.get(0);
         // If we are here, something bad happened
         return null;
     }
