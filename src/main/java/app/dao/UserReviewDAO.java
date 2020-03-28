@@ -4,28 +4,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import app.dao.utils.DatabaseUtils;
-import app.model.Show;
 import app.model.UserReview;
 
 
 
 public class UserReviewDAO {
-    public static final String SALT = "$2a$10$h.dl5J86rGH7I8bD9bZeZe";
 
-
-    /**
-     * Method to fetch users from the database.
-     * You should use this as an example for future queries, though the sql statement
-     * will change -and you are supposed to write them.
-     *
-     * Current user: caramel 6, password (the password is "password" without quotes)
-     * @param username what the user typed in the log in form.
-     * @return Some of the user data to check on the password. Null if there
-     *         no matching user.
-     */
     public static UserReview getReviewByID(String reviewID) {
         // Fish out the results
         List<UserReview> userReviews = new ArrayList<>();
@@ -42,9 +30,15 @@ public class UserReviewDAO {
             // If you have multiple results, you do a while
             while(result.next()) {
                 // 2) Add it to the list we have prepared
+            	int reviewID1 = result.getInt("reviewId");
+        		int showID = result.getInt("show_id");
+        		String userID = result.getString("user_id");
+        		int rating = result.getInt("rating");
+        		String review = result.getString("review");
+        		Date date = result.getDate("date");
+        		
                 userReviews.add(
-                  // 1) Create a new account object                			
-                  new UserReview(result.getString("review"), result.getInt("rating"))
+                  new UserReview(reviewID1, showID, userID, rating, review, date)
                 );
             }
 

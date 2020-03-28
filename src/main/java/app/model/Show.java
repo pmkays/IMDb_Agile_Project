@@ -7,10 +7,11 @@ import java.util.List;
 public class Show {
     private int showid;
     private String showTitle;
+    private String genre;
     private double length;
     private boolean isMovie;
     private boolean isSeries;
-    private String genre;
+    private int procoID;
     private int year;
     private String synopsis;
 
@@ -21,12 +22,13 @@ public class Show {
 
     
     public Show(int showid, String showTitle, double length,
-    		boolean isMovie, boolean isSeries, String genre, int year, String synopsis) {
+    		boolean isMovie, boolean isSeries, int procoID, String genre, int year, String synopsis) {
     	this.showid = showid;
     	this.showTitle = showTitle;
     	this.length = length;
     	this.isMovie = isMovie;
     	this.isSeries = isSeries;
+    	this.procoID = procoID;
     	this.genre = genre;
     	this.year = year;
     	this.synopsis = synopsis;
@@ -54,6 +56,10 @@ public class Show {
     
     public boolean getIsSeries() {
     	return isSeries;
+    }
+    
+    public int getProcoID() {
+    	return procoID;
     }
     
     public String getGenre() {

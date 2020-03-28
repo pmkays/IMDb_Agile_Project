@@ -1,10 +1,6 @@
 package app.model;
 
-
-
 import java.util.Date;
-
-
 
 public class Person {
     private int personId;

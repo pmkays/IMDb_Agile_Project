@@ -1,15 +1,13 @@
 package app.dao;
 
-import app.dao.utils.DatabaseUtils;
-import app.model.Account;
-import org.eclipse.collections.impl.list.mutable.FastList;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import app.dao.utils.DatabaseUtils;
+import app.model.Account;
 
 
 
@@ -43,11 +41,17 @@ public class AccountDAO {
             // If you have multiple results, you do a while
             while(result.next()) {
                 // 2) Add it to the list we have prepared
-                accounts.add(
-                  // 1) Create a new account object
-                  new Account(result.getString("username"),
-                          result.getString("password"))
-                );
+            	accounts.add(
+                        // 1) Create a new account object
+                      		new Account(
+                      				result.getString("username"),
+                      				result.getString("password"),
+                      				result.getString("first_name"),
+                      				result.getString("last_name"),
+                      				result.getString("country"),
+                      				result.getString("gender"),
+                      				result.getString("email"))
+                      );
             }
 
             // Close it

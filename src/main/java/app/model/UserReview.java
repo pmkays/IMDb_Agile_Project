@@ -2,31 +2,23 @@ package app.model;
 
 import java.util.Date;
 
-
-
-
-
 public class UserReview {
     private int reviewID;
-    private String username;
-    private String review;
+    private int showID;
+    private String userID;
     private int rating;
+    private String review;
     private Date date;
 
-
-
-
-
-
-    public UserReview(String r, int v) {
-        review = r;
-        rating = v;
-        date = new Date();
+    public UserReview(int reviewID, int showID, String userID, int rating,
+    				String review, Date date) {
+        this.reviewID = reviewID;
+        this.showID = showID;
+        this.userID = userID;
+        this.rating = rating;
+        this.review = review;
+        this.date = date;
     }
-
-
-
-
 
     public String getReview() {
         return review;
