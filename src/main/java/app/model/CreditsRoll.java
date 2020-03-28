@@ -9,10 +9,12 @@ public class CreditsRoll {
     private int startYear;
     private int endYear;
 
-    public CreditsRoll(int personID, String role, int startYear) {
-        this.personID = personID;
+    public CreditsRoll(Person person, String role, int startYear, String character, int endYear) {
+    	this.person = person;
         this.role = role;
         this.startYear = startYear;
+        this.character = character;
+        this.endYear = endYear;
     }
 
     public Person getPerson() {
