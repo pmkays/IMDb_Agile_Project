@@ -2,9 +2,10 @@
 #@mainLayout()
 <head>
 	<link rel="stylesheet" href="/person.css">
+	#set( $link = "blah" )
 </head>
 <body class = "body">
-	<h1>Robert Deniro</h1>
+	<h1>${actor.getFullName()}</h1>
 		<div class = "image">
 			<img class = "photo" src = "https://upload.wikimedia.org/wikipedia/commons/0/0a/Scott_Morrison_2014.jpg" alt = "actor image">
 		</div>
@@ -40,50 +41,54 @@
 					<th> Character </th>
 					<th> Year </th>
 				</tr>
+				#foreach( $credit in ${credits} )
+			    <tr>
+					<td> <a href = "${show_link}/?show=${credit.getShow().getShowID()}">
+						 ${credit.getShow().getShowTitle()}</a></td>
+					<td> ${credit.getRole()}</td>
+					<td> ${credit.getCharacter()}</td>
+					<td> ${credit.getStartYear()}
+						 #if(${credit.getEndYear()} != 0)
+							- ${credit.getEndYear()}
+						 #end</td>
+				</tr>
+			 	#end
 				<tr>
-					<td> Yeeting off to Hawaii </td>
+					<td> Yeeting off to Hawaii dud data</td>
 					<td> Actor </td>
 					<td> Crap PM </td>
 					<td> 2019 - 2020 </td>
 				</tr>
 				<tr>
-					<td> Ignoring the hot flame bois </td>
+					<td> Ignoring the hot flame bois dud data </td>
 					<td> Actor </td>
 					<td> Ridiculous PM </td>
 					<td> 2020 </td>
 				</tr>
 				<tr>
-					<td> Social distancing </td>
+					<td> Social distancing dud data</td>
 					<td> Actor </td>
 					<td> Late PM </td>
 					<td> 2020 </td>
 				</tr>
 				<tr>
-					<td> Social distancing </td>
+					<td> Social distancing dud data</td>
 					<td> Actor </td>
 					<td> Late PM </td>
 					<td> 2020 </td>
 				</tr>
 				<tr>
-					<td> Social distancing </td>
+					<td> Social distancing dud data</td>
 					<td> Actor </td>
 					<td> Late PM </td>
 					<td> 2020 </td>
 				</tr>
 				<tr>
-					<td> Social distancing </td>
+					<td> Social distancing dud data</td>
 					<td> Actor </td>
 					<td> Late PM </td>
 					<td> 2020 </td>
 				</tr>
-				<!--#foreach( $credit in ${credits} )
-			    <tr>
-					<td> ${credit.getFilm()}</td>
-					<td> ${credit.getRole()}</td>
-					<td> ${credit.getCharacter()} </td>
-					<td> ${credit.getStartYear()}-${credit.getStartYear()}</td>
-				</tr>
-			 	#end -->
 			</table>
 		</div>
 	</div>

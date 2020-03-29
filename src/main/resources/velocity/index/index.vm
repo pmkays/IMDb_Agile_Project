@@ -17,8 +17,8 @@
 </form>
 
 <form method="get">
-  Click to see about robert deniro!
-  <input type = "hidden" name = "actor" value = 1></input>
-  <button type="submit">Robert</button>
+  Search an actor using their ID!
+  <input type = "text" name = "actor"></input>
+  <button type="submit">See actor</button>
 </form>
 #end
