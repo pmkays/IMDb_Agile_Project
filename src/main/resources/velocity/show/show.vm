@@ -1,30 +1,56 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
-<div style = "background-color:#333333; color: white;">
-<h2 style = "color: white; display: inline-block;">${show.getShowTitle()}</h2>
-<h4 style = "color: white; display: inline-block;">(${show.getYear()})</h4>
-
-<div>
-<h4 style = "color: white; display: inline-block;">${show.getLength()}</h4>
-<h4 style = "color: white; display: inline-block;">${show.getGenre()}</h4>
-</div></div>
-
-<div>
-<h1>Synopsis:</h1>
-<p>${show.getSynopsis()}</p>
-</div>
-
-<div>
-<h1> Cast </h1>
-<table class = "table">
-				#foreach( $credit in ${credits} )
+<head>
+	<link rel="stylesheet" href="/show.css">
+</head>
+<body class = "body">
+	<div class = "title">
+		<h1>${show.getShowTitle()}</h1>
+		<div class = "info">
+			<hr>
+			<p class = "overview">
+				<span>${hour}h ${minutes}m |</span>
+				<span>${show.getGenre()} |</span>
+				<span>${show.getYear()}</span>
+			</p>	
+		</div>
+	</div>
+	
+	<div>
+		<!-- INSERT PHOTOS HERE -->
+	</div>
+	
+	<div class = "section">
+		<h3>Synopsis</h3>
+		<p class = "synopsis">${show.getSynopsis()}</p>
+	</div>
+	
+	<div class = "section">
+		<h3> Cast </h3>
+		<table class = "table">
+			<tr>
+				<th>Role</th>
+				<th>Name</th>
+				<th>Character</th>
+				#if(!${show.getIsMovie()})
+					<th>Year</th>
+				#end
+			</tr>
+			#foreach( $credit in ${credits} )
 			    <tr>
+			    	<td> <a href ="/?actor=${credit.getPerson().getPersonId()}">${credit.getPerson().getFullName()}</a></td>
 					<td> ${credit.getRole()}</td>
-					<td> ${credit.getPerson().getFullName()} </td>
 					<td> ${credit.getCharacter()} </td>
-					<td> ${credit.getStartYear()}</td>
+					<td> #if(!${show.getIsMovie()})
+						 	${credit.getStartYear()}
+							 #if(${credit.getEndYear()} != 0)
+								- ${credit.getEndYear()}
+							 #end	
+						 #end</td>
 				</tr>
-			 	#end
-			</table>
-</div>
+		 	#end
+		</table>
+	</div>
+</body>
+
 #end
