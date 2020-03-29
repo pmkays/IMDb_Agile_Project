@@ -1,0 +1,30 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+    <link rel="stylesheet" href="/person.css">
+</head>
+<body class = "body">
+
+    <h1>Search results for: "<?php echo htmlspecialchars($_POST["showTitleSearch"]); ?>"</h1>
+    <div id = "container">
+        #foreach( $show in ${shows} )
+            <div class = "resultbox">
+                <h1>${show.getShowTitle()}</h1>
+                #if ($show.isMovie())
+                    <h2>Movie</h2>
+                #end
+                #if ($show.isMovie())
+                    <h2>Series</h2>
+                #end
+                <h2>Genre: ${show.getGenre()}</h2>
+                <h2>Year: ${show.getYear()}</h2>
+                <hr>
+                <h2>Synopsis</h2>
+                <p>${show.getSynopsis()}</p>
+            </div>
+        #end
+    </div>
+
+</body>
+
+#end

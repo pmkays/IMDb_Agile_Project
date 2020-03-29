@@ -1,5 +1,6 @@
 package app.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import app.controller.paths.Template;
@@ -20,6 +21,15 @@ public class ShowController {
         model.put("show", show);
         ctx.render(Template.SHOW, model);
     };
+
+    public static Handler serveResultsPage = ctx -> {
+        Map<String, Object> model = ViewUtil.baseModel(ctx);
+
+        List<Show> shows = ShowDAO.getAllShowsByTitleFilter("Star Wars");
+        model.put("shows", shows);
+        ctx.render(Template.SEARCH_RESULTS, model);
+    };
+
 
 
 

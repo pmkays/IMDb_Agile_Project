@@ -12,6 +12,7 @@ import app.model.Show;
 import app.model.ShowImage;
 import app.model.UserReview;
 
+import javax.xml.transform.Result;
 
 
 public class ShowDAO {
@@ -47,7 +48,31 @@ public class ShowDAO {
     
 
 	public static List<Show> getAllShowsByTitleFilter(String filter) {
-		//TO DO LUKE
+		List<Show> shows = new ArrayList<>();
+
+		try{
+		    String sql = "SELECT * FROM `show` WHERE upper(show_title) like '%" + filter.toUpperCase() + "%'";
+
+		    Connection connection = DatabaseUtils.connectToDatabase();
+		    Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            while(result.next()) {
+                shows.add(
+                        new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
+                                result.getBoolean("movie"), result.getBoolean("series"),  result.getInt("proco_id"),
+                                result.getString("genre"), result.getInt("year"), result.getString("synopsis"))
+                );
+            }
+
+            DatabaseUtils.closeConnection(connection);
+
+        }
+		catch (Exception e){
+		    e.printStackTrace();
+        }
+
+		if(!shows.isEmpty()) return shows;
 		return null;
 	}
 	
