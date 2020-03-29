@@ -65,3 +65,16 @@ tr:nth-child(odd) {
 	line-height: 25px;
 }
 
+a:visited {
+  	color: #551A8B;
+}
+
+a:hover {
+	color: #008ab4;
+	text-decoration: underline;
+}
+
+a:active {
+  	color: #e6b91e;
+}
+

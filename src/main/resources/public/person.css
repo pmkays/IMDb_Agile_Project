@@ -61,13 +61,11 @@ a:visited {
   	color: #551A8B;
 }
 
-/* mouse over link */
 a:hover {
 	color: #008ab4;
 	text-decoration: underline;
 }
 
-/* selected link */
 a:active {
   	color: #e6b91e;
 }
