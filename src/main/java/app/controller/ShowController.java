@@ -25,8 +25,10 @@ public class ShowController {
     public static Handler serveResultsPage = ctx -> {
         Map<String, Object> model = ViewUtil.baseModel(ctx);
 
-        List<Show> shows = ShowDAO.getAllShowsByTitleFilter("Star Wars");
+        String searchText = ctx.queryParam("showTitleSearch");
+        List<Show> shows = ShowDAO.getAllShowsByTitleFilter(searchText);
         model.put("shows", shows);
+        model.put("query", searchText);
         ctx.render(Template.SEARCH_RESULTS, model);
     };
 

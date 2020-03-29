@@ -41,7 +41,7 @@ public class Main {
             get(Web.ACCOUNT, AccountController.serveAccountPage);
             get(Web.SHOW, ShowController.serveShowPage);
             get(Web.USER_REVIEW, UserReviewController.serveReviewPage);
-            post(Web.SEARCH_RESULTS, ShowController.serveResultsPage);
+            get(Web.SEARCH_RESULTS, ShowController.serveResultsPage);
          
 
             // Add new actions here
