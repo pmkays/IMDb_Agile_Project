@@ -9,6 +9,7 @@ public class CreditsRoll {
     private int startYear;
     private int endYear;
     private int showID;
+    private Show show;
 
     public CreditsRoll(Person person, String role, int startYear, String character, int endYear, int showID) {
     	this.person = person;
@@ -17,6 +18,15 @@ public class CreditsRoll {
         this.character = character;
         this.endYear = endYear;
         this.showID = showID;
+    }
+    
+    public CreditsRoll(Person person, String role, int startYear, String character, int endYear, Show show) {
+    	this.person = person;
+        this.role = role;
+        this.startYear = startYear;
+        this.character = character;
+        this.endYear = endYear;
+        this.show = show;
     }
 
     public Person getPerson() {
@@ -45,5 +55,9 @@ public class CreditsRoll {
     
     public int getShowID() {
     	return showID;
+    }
+    
+    public Show getShow() {
+    	return show;
     }
 }
