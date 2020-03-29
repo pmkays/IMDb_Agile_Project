@@ -105,7 +105,7 @@ public class ShowDAO {
             	
                 creditsRoll.add(
                   new CreditsRoll(person, result.getString("role"), result.getInt("start_year"),
-                		  result.getString("character_name"), result.getInt("end_year"))
+                		  result.getString("character_name"), result.getInt("end_year"), result.getInt("show_id"))
                 );
             }
 

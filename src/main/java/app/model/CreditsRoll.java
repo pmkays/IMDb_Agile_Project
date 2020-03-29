@@ -8,13 +8,15 @@ public class CreditsRoll {
     private String character;
     private int startYear;
     private int endYear;
+    private int showID;
 
-    public CreditsRoll(Person person, String role, int startYear, String character, int endYear) {
+    public CreditsRoll(Person person, String role, int startYear, String character, int endYear, int showID) {
     	this.person = person;
         this.role = role;
         this.startYear = startYear;
         this.character = character;
         this.endYear = endYear;
+        this.showID = showID;
     }
 
     public Person getPerson() {
@@ -39,5 +41,9 @@ public class CreditsRoll {
 
     public String getCharacter() {
         return character;
+    }
+    
+    public int getShowID() {
+    	return showID;
     }
 }
