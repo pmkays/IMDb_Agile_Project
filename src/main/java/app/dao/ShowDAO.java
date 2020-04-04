@@ -2,6 +2,7 @@ package app.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import app.model.Show;
 import app.model.ShowImage;
 import app.model.UserReview;
 
-
+import javax.xml.transform.Result;
 
 public class ShowDAO {
 
@@ -58,7 +59,39 @@ public class ShowDAO {
 	
 	public static List<Show> getAllShowsByPersonFilter(String filter) {
 		//TO DO MATT
-		return null;
+
+        List<Person> actors = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM 'person' WHERE upper(fullname) like '%' + filter.toUpperCase() + '%'";
+
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            while(result.next())
+            {
+                actors.add(
+                        new Person(result.getInt("person_id"), result.getString("fullname"), result.getString("role"),
+                                result.getDate("birthdate"), result.getString("bio"))
+                );
+            }
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        // START HERE TOMORROW!
+        if(!actors.isEmpty()) return actors;
+
+        return null;
 	}
     
 	public static List<ShowImage> getShowImageByShowId(String showID) {

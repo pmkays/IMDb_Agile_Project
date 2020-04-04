@@ -5,6 +5,7 @@ import app.controller.IndexController;
 import app.controller.LoginController;
 import app.controller.ShowController;
 import app.controller.UserReviewController;
+import app.controller.paths.Template;
 import app.controller.paths.Web;
 import app.controller.utils.ViewUtil;
 import io.javalin.Javalin;
@@ -40,6 +41,8 @@ public class Main {
             get(Web.ACCOUNT, AccountController.serveAccountPage);
             get(Web.SHOW, ShowController.serveShowPage);
             get(Web.USER_REVIEW, UserReviewController.serveReviewPage);
+            // UNCOMMENT WHEN FIXED !
+            post(Web.SEARCH_BY_ACTOR, ShowController.serveSearchByActorPage);
          
 
             // Add new actions here
