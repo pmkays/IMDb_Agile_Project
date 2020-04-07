@@ -1,7 +1,7 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
 <head>
-    <link rel="stylesheet" href="/person.css">
+    <link rel="stylesheet" href="/searchByActor.css">
 </head>
 
 <body class = "body">
@@ -19,9 +19,10 @@
                 #end
                 <h3>Genre: ${show.getGenre()}</h3>
                 <h3>Year: ${show.getYear()}</h3>
-                <br>
+                <hr>
                 <h3>Synopsis</h3>
                 <p>${show.getSynopsis()}</p>
+                <br>
             </div>
         #end
     </div>
