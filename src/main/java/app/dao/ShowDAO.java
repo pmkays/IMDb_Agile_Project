@@ -1,21 +1,13 @@
 package app.dao;
 
+import app.dao.utils.DatabaseUtils;
+import app.model.*;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import app.dao.utils.DatabaseUtils;
-import app.model.CreditsRoll;
-import app.model.Person;
-import app.model.ProductionCompany;
-import app.model.Show;
-import app.model.ShowImage;
-import app.model.UserReview;
-
-import javax.xml.transform.Result;
 
 public class ShowDAO {
 
@@ -57,14 +49,17 @@ public class ShowDAO {
 		return null;
 	}
 	
-	public static List<Show> getAllShowsByPersonFilter(String filter) {
+	public static List<Show> getAllShowsByPersonFilter(String name) {
 		//TO DO MATT
-
-        List<Person> actors = new ArrayList<>();
+        List<Show> shows = new ArrayList<>();
 
         try
         {
-            String sql = "SELECT * FROM 'person' WHERE upper(fullname) like '%' + filter.toUpperCase() + '%'";
+            String sql = "SELECT * FROM person, credits_roll, `show`, production_company " +
+                    "WHERE credits_roll.person_id = person.person_id " +
+                    "AND `show`.show_id = credits_roll.show_id " +
+                    "AND production_company.proco_id = `show`.proco_id " +
+                    "AND UPPER(person.fullname) LIKE '%" + name.toUpperCase() + "%'";
 
             Connection connection = DatabaseUtils.connectToDatabase();
             Statement statement = connection.createStatement();
@@ -72,24 +67,25 @@ public class ShowDAO {
 
             while(result.next())
             {
-                actors.add(
-                        new Person(result.getInt("person_id"), result.getString("fullname"), result.getString("role"),
-                                result.getDate("birthdate"), result.getString("bio"))
+                ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
+                        result.getString("proco_name"));
+                shows.add(
+                        new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
+                                result.getBoolean("movie"), result.getBoolean("series"), productionCompany,
+                                result.getString("genre"), result.getInt("year"), result.getString("synopsis"))
                 );
             }
             DatabaseUtils.closeConnection(connection);
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
 
-        // START HERE TOMORROW!
-        if(!actors.isEmpty()) return actors;
+        if(shows != null)
+        {
+            return shows;
+        }
 
         return null;
 	}
@@ -115,7 +111,7 @@ public class ShowDAO {
         catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         if(!showImages.isEmpty()) return showImages;
         return null;
 	}
