@@ -11,7 +11,6 @@ public class Show {
     private double length;
     private boolean isMovie;
     private boolean isSeries;
-    private int procoID;
     private int year;
     private String synopsis;
 
@@ -22,16 +21,18 @@ public class Show {
 
     
     public Show(int showid, String showTitle, double length,
-    		boolean isMovie, boolean isSeries, int procoID, String genre, int year, String synopsis) {
+    		boolean isMovie, boolean isSeries, ProductionCompany productionCompany,
+    		String genre, int year, String synopsis) {
     	this.showid = showid;
     	this.showTitle = showTitle;
     	this.length = length;
     	this.isMovie = isMovie;
     	this.isSeries = isSeries;
-    	this.procoID = procoID;
+    	this.productionCompany = productionCompany;
     	this.genre = genre;
     	this.year = year;
     	this.synopsis = synopsis;
+    	
     }
     
     public Show(int showid) {
@@ -58,8 +59,8 @@ public class Show {
     	return isSeries;
     }
     
-    public int getProcoID() {
-    	return procoID;
+    public ProductionCompany getProco() {
+    	return productionCompany;
     }
     
     public String getGenre() {
