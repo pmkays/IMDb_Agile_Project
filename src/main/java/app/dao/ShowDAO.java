@@ -56,16 +56,20 @@ public class ShowDAO {
 		List<Show> shows = new ArrayList<>();
 
 		try{
-		    String sql = "SELECT * FROM `show` WHERE upper(show_title) like '%" + filter.toUpperCase() + "%'";
+		    String sql = "SELECT * FROM `show`, production_company " +
+                    "WHERE upper(show_title) like '%" + filter.toUpperCase() + "%'" +
+                    "AND production_company.proco_id = `show`.proco_id";
 
 		    Connection connection = DatabaseUtils.connectToDatabase();
 		    Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
             while(result.next()) {
+                ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
+                        result.getString("proco_name"));
                 shows.add(
                         new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
-                                result.getBoolean("movie"), result.getBoolean("series"),  result.getInt("proco_id"),
+                                result.getBoolean("movie"), result.getBoolean("series"),  productionCompany,
                                 result.getString("genre"), result.getInt("year"), result.getString("synopsis"))
                 );
             }
