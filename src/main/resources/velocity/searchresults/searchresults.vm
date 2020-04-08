@@ -8,17 +8,8 @@
     <div id = "container">
         #foreach( $show in ${shows} )
             <div class = "resultbox">
-                <h2>${show.getShowTitle()}</h2>
-                #if ($show.isMovie())
-                    <h3>Movie</h3>
-                #end
-                #if ($show.isMovie())
-                    <h3>Series</h3>
-                #end
-                <h3>Genre: ${show.getGenre()}</h3>
-                <h3>Year: ${show.getYear()}</h3>
-                <hr/>
-                <h3>Synopsis</h3>
+                <h2><a href = "/show/?show=${show.getShowID()}">${show.getShowTitle()}</a></h2>
+                <h3>${show.getYear()} | ${show.getGenre()}</h3>
                 <p>${show.getSynopsis()}</p>
             </div>
         #end

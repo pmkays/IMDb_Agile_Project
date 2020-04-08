@@ -9,4 +9,19 @@
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 15px;
+    line-height: 50%;
+    width: 75%;
+}
+
+a:visited {
+    color: #551A8B;
+}
+
+a:hover {
+    color: #008ab4;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #e6b91e;
 }
