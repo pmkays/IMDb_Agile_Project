@@ -64,7 +64,7 @@
 	  	<select class="custom-select custom-select-sm search" name="queryType">
 	  		<option value="show">Show</option>
 			<option value="actor">Actor</option>
-			<option value="actorshow">Actor in Movie</option>
+			<option value="actorshow">Actor in Show</option>
 		</select>
 	  	<input class="form-control form-control-sm search2" type = "text" name = "searchQuery" required></input>
 	  	<button type="submit" class="btn btn-sm btn-outline-secondary search3"><i class="fas fa-search"></i>.</button>
