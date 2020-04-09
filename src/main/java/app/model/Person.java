@@ -8,6 +8,7 @@ public class Person {
     private String role;
     private Date birthdate;
     private String bio;
+    private ActorImage image;
 
     public Person(int id, String fullName, String role, Date bday, String bio) {
         this.personId = id;
@@ -35,6 +36,14 @@ public class Person {
     
     public String getBio() {
         return this.bio;
+    }
+    
+    public void setActorImage(ActorImage image) {
+    	this.image = image;
+    }
+    
+    public ActorImage getActorImage() {
+    	return this.image;
     }
 
 }

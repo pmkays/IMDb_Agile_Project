@@ -7,7 +7,8 @@
 <body class = "body">
 	<h1>${actor.getFullName()}</h1>
 		<div class = "image">
-			<img class = "photo" src = "https://upload.wikimedia.org/wikipedia/commons/0/0a/Scott_Morrison_2014.jpg" alt = "actor image">
+			<div class = "photo" style="background: url(${actor.getActorImage().getUrl()}); background-size: cover;">
+			</div>
 		</div>
 		<div class = "section">
 			<h3>Overview</h3>

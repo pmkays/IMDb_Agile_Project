@@ -7,11 +7,16 @@
     <h3>Search results for: "${query}"</h3>
     <div id = "container">
         #foreach( $show in ${shows} )
-            <div class = "resultbox">
-                <a href = "/show/?show=${show.getShowID()}">${show.getShowTitle()}</a> <br>
+        <div class="row padding">
+			<div class="col col-lg-3">
+				<img src="${show.getImages().get(0).getUrl()}" alt="${show.getShowTitle()} Poster Image"></img>
+			</div>
+            <div class = "col col-lg-9 resultbox">
+                <a href = "/show/?show=${show.getShowID()}"><strong>${show.getShowTitle()}</a></strong> <br>
                 ${show.getYear()} | ${show.getGenre()}
                 <p>${show.getSynopsis()}</p>
             </div>
+       	</div>
         #end
     </div>
 

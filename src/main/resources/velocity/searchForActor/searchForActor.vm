@@ -1,0 +1,23 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+    <link rel="stylesheet" href="/searchByActor.css">
+</head>
+
+<body class = "body">
+    <h3>Search results for: "${query}"</h3>
+    <div id = "container">
+        #foreach( $person in ${persons} )
+            <div class="row padding">
+			<div class="col col-lg-3">
+				<div class="photo" style="background: url(${person.getActorImage().getUrl()}); background-size: cover;"></div>
+			</div>
+            <div class = "col col-lg-9 resultbox">
+                <a href = "/actor?actor=${person.getPersonId()}"><strong>${person.getFullName()}</a></strong> <br>
+                <p>${person.getBio().substring(0,100)}...</p>
+            </div>
+       	</div>
+        #end
+    </div>
+</body>
+#end

@@ -16,6 +16,7 @@ public class Show {
 
     private List<UserReview> userReviewList;
     private ProductionCompany productionCompany;
+    private List<ShowImage> images;
 
     private List<CreditsRoll> creditsRolls;
 
@@ -73,6 +74,14 @@ public class Show {
     
     public String getSynopsis() {
     	return synopsis;
+    }
+    
+    public void setImages(List<ShowImage> images){
+    	this.images = images;
+    }
+    
+    public List<ShowImage> getImages(){
+    	return this.images;
     }
 
 

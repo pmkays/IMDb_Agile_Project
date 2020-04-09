@@ -4,8 +4,12 @@
 	<link rel="stylesheet" href="/show.css">
 </head>
 <body class = "body">
-	<div class = "title">
-		<h1>${show.getShowTitle()}</h1>
+<div class="row">
+<div class="col col-lg-3">
+<img src="${show.getImages().get(0).getUrl()}" alt="${show.getShowTitle()} Poster Image"></img>
+</div>
+	<div class = "col col-lg-9 title">
+		<h2>${show.getShowTitle()}</h2>
 		<div class = "info">
 			<hr>
 			<p class = "overview">
@@ -15,9 +19,9 @@
 			</p>	
 		</div>
 	</div>
-	
+</div>
 	<div>
-		<!-- INSERT PHOTOS HERE -->
+		
 	</div>
 	
 	<div class = "section">
@@ -38,7 +42,7 @@
 			</tr>
 			#foreach( $credit in ${credits} )
 			    <tr>
-			    	<td> <a href ="/?actor=${credit.getPerson().getPersonId()}">${credit.getPerson().getFullName()}</a></td>
+			    	<td> <a href ="/actor?actor=${credit.getPerson().getPersonId()}">${credit.getPerson().getFullName()}</a></td>
 					<td> ${credit.getRole()}</td>
 					<td> ${credit.getCharacter()} </td>
 					<td> #if(!${show.getIsMovie()})

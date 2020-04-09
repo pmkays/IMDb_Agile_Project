@@ -20,7 +20,7 @@ public class ActorImage {
 		return url;
 	}
 	
-	public int personID() {
+	public int getPersonID() {
 		return personID;
 	}
 

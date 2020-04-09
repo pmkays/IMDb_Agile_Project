@@ -1,7 +1,5 @@
 package app.dao;
 
-import app.dao.utils.DatabaseUtils;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -16,203 +14,206 @@ import app.model.Show;
 import app.model.ShowImage;
 import app.model.UserReview;
 
-import javax.xml.transform.Result;
-
 public class ShowDAO {
 
-    public static Show getShowByID(String showid) {
-        List<Show> shows = new ArrayList<>();
+	public static Show getShowByID(String showid) {
+		List<Show> shows = new ArrayList<>();
 
-        try {
-            String sql = "SELECT * FROM `show` NATURAL JOIN production_company WHERE show_id =" + showid;
+		try {
+			String sql = "SELECT * FROM `show`, production_company, show_image_show "
+					+ "WHERE `show`.proco_id = production_company.proco_id "
+					+ "AND `show`.show_id = show_image_show.show_id " + "AND `show`.show_id =" + showid;
 
-            Connection connection = DatabaseUtils.connectToDatabase();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 
-            while(result.next()) {
-            	
-            	ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
-            			result.getString("proco_name"));
-                shows.add(
-                  new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
-                		  result.getBoolean("movie"), result.getBoolean("series"), productionCompany,
-                		  result.getString("genre"), result.getInt("year"), result.getString("synopsis"))
-                );
-            }
+			while (result.next()) {
 
-            DatabaseUtils.closeConnection(connection);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+				ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
+						result.getString("proco_name"));
 
+				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
+						result.getDouble("length"), result.getBoolean("movie"), result.getBoolean("series"),
+						productionCompany, result.getString("genre"), result.getInt("year"),
+						result.getString("synopsis"));
 
-        if(!shows.isEmpty()) return shows.get(0);
-        return null;
-    }
-    
+				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
+
+				List<ShowImage> images = new ArrayList<ShowImage>();
+				images.add(image);
+				newShow.setImages(images);
+				shows.add(newShow);
+
+			}
+
+			DatabaseUtils.closeConnection(connection);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (!shows.isEmpty())
+			return shows.get(0);
+		return null;
+	}
 
 	public static List<Show> getAllShowsByTitleFilter(String filter) {
 		List<Show> shows = new ArrayList<>();
 
-		try{
-		    String sql = "SELECT * FROM `show`, production_company " +
-                    "WHERE upper(show_title) like '%" + filter.toUpperCase() + "%'" +
-                    "AND production_company.proco_id = `show`.proco_id";
+		try {
+			String sql = "SELECT * FROM `show`, production_company, show_image_show  " + 
+						"WHERE upper(show_title) like '%"
+						+ filter.toUpperCase() + "%'" + 
+						"AND production_company.proco_id = `show`.proco_id " +
+						"AND `show`.show_id = show_image_show.show_id";
 
-		    Connection connection = DatabaseUtils.connectToDatabase();
-		    Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 
-            while(result.next()) {
-                ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
-                        result.getString("proco_name"));
-                shows.add(
-                        new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
-                                result.getBoolean("movie"), result.getBoolean("series"),  productionCompany,
-                                result.getString("genre"), result.getInt("year"), result.getString("synopsis"))
-                );
-            }
+			while (result.next()) {
+				ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
+						result.getString("proco_name"));
 
-            DatabaseUtils.closeConnection(connection);
+				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
+						result.getDouble("length"), result.getBoolean("movie"), result.getBoolean("series"),
+						productionCompany, result.getString("genre"), result.getInt("year"),
+						result.getString("synopsis"));
 
-        }
-		catch (Exception e){
-		    e.printStackTrace();
-        }
+				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
+				List<ShowImage> images = new ArrayList<ShowImage>();
+				images.add(image);
+				newShow.setImages(images);
+				
+				shows.add(newShow);
+			}
 
-		if(!shows.isEmpty()) return shows;
+			DatabaseUtils.closeConnection(connection);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (!shows.isEmpty())
+			return shows;
 		return null;
 	}
-	
+
 	public static List<Show> getAllShowsByPersonFilter(String name) {
-		//TO DO MATT
-        List<Show> shows = new ArrayList<>();
+		List<Show> shows = new ArrayList<>();
 
-        try
-        {
-            String sql = "SELECT * FROM person, credits_roll, `show`, production_company " +
-                    "WHERE credits_roll.person_id = person.person_id " +
-                    "AND `show`.show_id = credits_roll.show_id " +
-                    "AND production_company.proco_id = `show`.proco_id " +
-                    "AND UPPER(person.fullname) LIKE '%" + name.toUpperCase() + "%'";
+		try {
+			String sql = "SELECT distinct * FROM person, credits_roll, `show`, production_company, show_image_show "
+					+ "WHERE credits_roll.person_id = person.person_id " + "AND `show`.show_id = credits_roll.show_id "
+					+ "AND `show`.show_id = show_image_show.show_id " 
+					+ "AND production_company.proco_id = `show`.proco_id " + "AND UPPER(person.fullname) LIKE '%"
+					+ name.toUpperCase() + "%' GROUP BY `show`.show_id;";
 
-            Connection connection = DatabaseUtils.connectToDatabase();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 
-            while(result.next())
-            {
-                ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
-                        result.getString("proco_name"));
-                shows.add(
-                        new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
-                                result.getBoolean("movie"), result.getBoolean("series"), productionCompany,
-                                result.getString("genre"), result.getInt("year"), result.getString("synopsis"))
-                );
-            }
-            DatabaseUtils.closeConnection(connection);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+			while (result.next()) {
+				ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
+						result.getString("proco_name"));
+				
+				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
+						result.getBoolean("movie"), result.getBoolean("series"), productionCompany,
+						result.getString("genre"), result.getInt("year"), result.getString("synopsis"));
+				
+				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
+				List<ShowImage> images = new ArrayList<ShowImage>();
+				images.add(image);
+				newShow.setImages(images);
+				
+				shows.add(newShow);
+			}
+			DatabaseUtils.closeConnection(connection);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        if(shows != null)
-        {
-            return shows;
-        }
-
-        return null;
+		return shows;
 	}
-    
+
 	public static List<ShowImage> getShowImageByShowId(String showID) {
 		List<ShowImage> showImages = new ArrayList<>();
 
-        try {
-            String sql = "SELECT * FROM show_image_show WHERE show_id =" + showID;
+		try {
+			String sql = "SELECT * FROM show_image_show WHERE show_id =" + showID;
 
-            Connection connection = DatabaseUtils.connectToDatabase();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 
-            while(result.next()) {
-                showImages.add(
-                  new ShowImage(result.getInt("image_id"), result.getString("url"))
-                );
-            }
+			while (result.next()) {
+				showImages.add(new ShowImage(result.getInt("image_id"), result.getString("url")));
+			}
 
-            DatabaseUtils.closeConnection(connection);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+			DatabaseUtils.closeConnection(connection);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        if(!showImages.isEmpty()) return showImages;
-        return null;
+		if (!showImages.isEmpty())
+			return showImages;
+		return null;
 	}
-	
-	public static  List<CreditsRoll> getCreditsRollByShowID(String showID) {
+
+	public static List<CreditsRoll> getCreditsRollByShowID(String showID) {
 		List<CreditsRoll> creditsRoll = new ArrayList<>();
 
-        try {
-            String sql = "SELECT * FROM credits_roll JOIN person ON credits_roll.person_id = person.person_id "
-            		+ "WHERE show_id =" + showID;
+		try {
+			String sql = "SELECT * FROM credits_roll JOIN person ON credits_roll.person_id = person.person_id "
+					+ "WHERE show_id =" + showID;
 
-            Connection connection = DatabaseUtils.connectToDatabase();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 
-            while(result.next()) {
-//            	public Person(int id, String fullName, String role, Date bday, String bio)
-            	Person person = new Person(result.getInt("person_id"), result.getString("fullname"),
-            			result.getString("role"), result.getDate("birthdate"), result.getString("bio"));
-            	
-                creditsRoll.add(
-                  new CreditsRoll(person, result.getString("role"), result.getInt("start_year"),
-                		  result.getString("character_name"), result.getInt("end_year"), result.getInt("show_id"))
-                );
-            }
+			while (result.next()) {
+				Person person = new Person(result.getInt("person_id"), result.getString("fullname"),
+						result.getString("role"), result.getDate("birthdate"), result.getString("bio"));
 
-            DatabaseUtils.closeConnection(connection);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+				creditsRoll.add(new CreditsRoll(person, result.getString("role"), result.getInt("start_year"),
+						result.getString("character_name"), result.getInt("end_year"), result.getInt("show_id")));
+			}
 
+			DatabaseUtils.closeConnection(connection);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        if(!creditsRoll.isEmpty()) return creditsRoll;
-        return null;
+		if (!creditsRoll.isEmpty())
+			return creditsRoll;
+		return null;
 	}
-	
+
 	public static List<UserReview> getUserReviewByShowID(String showID) {
 		List<UserReview> userReviews = new ArrayList<>();
 
-        try {
-            String sql = "SELECT * FROM credits_roll WHERE show_id =" + showID;
+		try {
+			String sql = "SELECT * FROM credits_roll WHERE show_id =" + showID;
 
-            Connection connection = DatabaseUtils.connectToDatabase();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 
-            while(result.next()) {
-                userReviews.add(
-                  new UserReview(result.getInt("reviewID"), result.getInt("show_id"), result.getString("user_id"),
-                		  result.getInt("rating"), result.getString("review"), result.getDate("date"))
-                );
-            }
+			while (result.next()) {
+				userReviews.add(
+						new UserReview(result.getInt("reviewID"), result.getInt("show_id"), result.getString("user_id"),
+								result.getInt("rating"), result.getString("review"), result.getDate("date")));
+			}
 
-            DatabaseUtils.closeConnection(connection);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        if(!userReviews.isEmpty()) return userReviews;
-        return null;
-		
+			DatabaseUtils.closeConnection(connection);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (!userReviews.isEmpty())
+			return userReviews;
+		return null;
+
 	}
-
 
 }

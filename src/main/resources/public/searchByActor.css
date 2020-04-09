@@ -1,13 +1,10 @@
 .body{
-    border: 1px solid #F6F6F5;
-    border-radius: 5px;
 }
 .resultbox{
     background-color: #F6F6F5;
     border: 1px solid #F6F6F5;
     border-radius: 5px;
     padding: 10px;
-    margin-bottom: 15px;
     width: 75%;
 }
 
@@ -22,4 +19,12 @@ a:hover {
 
 a:active {
     color: #e6b91e;
+}
+
+.photo{
+	height: 150px;
+}
+
+.padding{
+	margin-bottom: 5px;
 }

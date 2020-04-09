@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>SEF IMBD</title>
-    <link rel="stylesheet" href="/main.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <link
@@ -12,7 +11,12 @@
       crossorigin="anonymous"
     />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <!-- Bootstrap Scripts -->
+   	<!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/e27aeb8d8d.js"
+      crossorigin="anonymous"
+    ></script>
+   	<!-- Bootstrap Scripts -->
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -28,12 +32,60 @@
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
     <header>
-        <nav>
-            <a href="/"><img id="logo" src="/img/logo.png" alt="IMBD"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+  <a class ="navbar-brand" href="/"><img id="logo" src="/img/logo.png" alt="IMBD"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">About Us</a>
+          <a class="dropdown-item" href="#">Movies</a>
+          <a class="dropdown-item" href="#">TV Shows</a>
+          <a class="dropdown-item" href="#">Celebs</a>
+          <a class="dropdown-item" href="#">Community</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Help Center</a>
+        </div>
+      </li>
+
+      <li>
+      <form class="form-inline my-2 my-lg-0 nav-search-bar" action="/">
+	  	<select class="custom-select custom-select-sm search" name="queryType">
+	  		<option value="show">Show</option>
+			<option value="actor">Actor</option>
+			<option value="actorshow">Actor in Movie</option>
+		</select>
+	  	<input class="form-control form-control-sm search2" type = "text" name = "searchQuery" required></input>
+	  	<button type="submit" class="btn btn-sm btn-outline-secondary search3"><i class="fas fa-search"></i>.</button>
+    </form>
+      </li>
+      #if($currentUser)
+                    <li class="nav-item">
+                        <form method="post" action="/logout">
+                            <button id="logout">Log Out</button>
+                        </form>
+                    </li>
+                    <li class="nav-item"><a href="/account" id="account">Account</a></li>
+                #else
+                    <li class="nav-item"><a href="/login" id="login">Log In</a></li>
+                #end
+    </ul>
+   
+  </div>
+</nav>
+        <!--<nav>
+            <a href="/"><img id="logo" src="/img/logo.png" alt="IMBD"></a>
             <ul id="menu">
                 #if($currentUser)
                     <li>
@@ -46,7 +98,7 @@
                     <li><a href="/login" >Log In</a></li>
                 #end
             </ul>
-        </nav>
+        </nav> --!>
     </header>
     <main>
         <div id="content">
@@ -54,7 +106,7 @@
         </div>
     </main>
     <footer>
-       Software Engineering Fundamentals Team Project
+       Software Engineering Fundamentals Team Scomo Project
     </footer>
 </body>
 </html>

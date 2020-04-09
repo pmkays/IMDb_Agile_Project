@@ -4,6 +4,7 @@ import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.post;
 
 import app.controller.AccountController;
+import app.controller.ActorController;
 import app.controller.IndexController;
 import app.controller.LoginController;
 import app.controller.ShowController;
@@ -35,7 +36,9 @@ public class Main {
             get(Web.SHOW, ShowController.serveShowPage);
             get(Web.USER_REVIEW, UserReviewController.serveReviewPage);
             get(Web.SEARCH_BY_ACTOR, ShowController.serveSearchByActorPage);
+            get(Web.SEARCH_FOR_ACTOR, ActorController.serveSearchForActorPage);
             get(Web.SEARCH_RESULTS, ShowController.serveResultsPage);
+            get(Web.ACTOR, ActorController.serveActorPage);
          
 
             // Add new actions here

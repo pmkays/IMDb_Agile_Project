@@ -1,6 +1,4 @@
 .body{
-	border: 1px solid #F6F6F5;
-	border-radius: 5px;
 }
 
 h3{
@@ -51,10 +49,8 @@ tr:nth-child(odd) {
 
 .photo{
 	float: right;
-	width: 35%;
-	height: 35%;
-	padding-top: 15px;
-	padding-left: 10px;
+	height: 45%;
+	width: 30%;
 }
 
 a:visited {

@@ -29,6 +29,7 @@ small {
     color: #555;
 }
 
+
 header {
     background: #121212;
     border-bottom: 5px solid #F5C518;
@@ -44,7 +45,7 @@ nav {
 }
 
 nav #menu {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     float: right;
 }
 
@@ -53,13 +54,13 @@ a {
     color: #008ab4;
 }
 
-#menu li {
+.account-li {
     float: left;
     font-size: 16px;
     margin: 0 10px;
 }
 
-#menu li a, #logout, #account {
+#menu li a, #logout, #account, #login {
     background: transparent;
     cursor: pointer;
     border: 0;
@@ -70,10 +71,31 @@ a {
     line-height: 30px;
     padding: 0 10px;
     text-decoration: none;
+	padding-top:5px;
 }
 
 #logo {
     max-height: 50px;
+}
+
+.nav-search-bar{
+	padding-top:5px;
+}
+
+.search{
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.search2{
+	border-radius: 0;
+	background-clip: unset;
+	width:50vh !important; 
+}
+
+.search3{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
 
 #chooseLanguage {
@@ -99,6 +121,11 @@ a {
 
 #chooseLanguage button:hover {
     opacity: 0.8;
+}
+
+.card-title{
+	color:white;
+	font-size:1rem;
 }
 
 main {
@@ -135,25 +162,6 @@ nav ul, nav li {
 
 /* Needlessly fancy menu hover effect */
 
-#menu li {
-    position: relative;
-}
-
-#menu li a::after, #logout:after {
-    position: absolute;
-    top: 28px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
-    content: '';
-    opacity: 0;
-    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-    transition: opacity 0.3s, transform 0.3s;
-    -webkit-transform: translateY(10px);
-    transform: translateY(10px);
-}
 
 #logout:hover::after,
 #logout:focus::after,
