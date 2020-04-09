@@ -76,6 +76,7 @@ a {
 
 #logo {
     max-height: 50px;
+    border-radius: 3px;
 }
 
 .nav-search-bar{
