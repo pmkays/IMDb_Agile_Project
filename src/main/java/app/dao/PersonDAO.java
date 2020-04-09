@@ -1,17 +1,18 @@
 package app.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import app.dao.utils.DatabaseUtils;
 import app.model.ActorImage;
 import app.model.CreditsRoll;
 import app.model.Person;
 import app.model.Show;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class PersonDAO {
 	
@@ -46,8 +47,40 @@ public class PersonDAO {
         return null;
     }
 	
-	public static List<Person> getAllPersonsByNameFilter(String filter) {
-		//TO DO. Low priority.
+	public static List<Person> getAllPersonsByNameFilter(String name)
+    {
+        List<Person> actors = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM 'person' WHERE upper(fullname) like '%' + name.toUpperCase() + '%'";
+
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            while(result.next())
+            {
+                actors.add(
+                        new Person(result.getInt("person_id"), result.getString("fullname"), result.getString("role"),
+                                result.getDate("birthdate"), result.getString("bio"))
+                );
+            }
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        if(actors != null)
+        {
+            return actors;
+        }
 		return null;
 	}
 	

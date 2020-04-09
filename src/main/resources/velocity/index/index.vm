@@ -10,7 +10,7 @@
 </form>
 
 
-<form id="searchActorForm" method="post">
+<form action="/searchByActor" id="searchActorForm" method="get">
     <label>Search by Actor</label>
     <input type="text" name="showActorSearch" placeholder="ActorName" value="" required>
     <input type="submit" value="Search">

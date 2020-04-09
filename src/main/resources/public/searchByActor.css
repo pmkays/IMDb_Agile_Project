@@ -1,0 +1,26 @@
+.body{
+    border: 1px solid #F6F6F5;
+    border-radius: 5px;
+}
+.resultbox{
+    background-color: #F6F6F5;
+    border: 1px solid #F6F6F5;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    line-height: 180%;
+    width: 75%;
+}
+
+a:visited {
+    color: #551A8B;
+}
+
+a:hover {
+    color: #008ab4;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #e6b91e;
+}
