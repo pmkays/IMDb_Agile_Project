@@ -201,7 +201,7 @@ public class ShowDAO {
 
 			while (result.next()) {
 				userReviews.add(
-						new UserReview(result.getInt("reviewID"), result.getInt("show_id"), result.getString("user_id"),
+						new UserReview(result.getInt("reviewID"), result.getInt("show_id"), result.getInt("user_id"),
 								result.getInt("rating"), result.getString("review"), result.getDate("date")));
 			}
 

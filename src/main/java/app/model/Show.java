@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Show {
-    private int showid;
+    private int showID;
     private String showTitle;
     private String genre;
     private double length;
@@ -14,17 +14,16 @@ public class Show {
     private int year;
     private String synopsis;
 
-    private List<UserReview> userReviewList;
+    private List<UserReview> userReviews;
     private ProductionCompany productionCompany;
     private List<ShowImage> images;
-
     private List<CreditsRoll> creditsRolls;
 
     
-    public Show(int showid, String showTitle, double length,
+    public Show(int showID, String showTitle, double length,
     		boolean isMovie, boolean isSeries, ProductionCompany productionCompany,
     		String genre, int year, String synopsis) {
-    	this.showid = showid;
+    	this.showID = showID;
     	this.showTitle = showTitle;
     	this.length = length;
     	this.isMovie = isMovie;
@@ -37,11 +36,11 @@ public class Show {
     }
     
     public Show(int showid) {
-		this.showid = showid;
+		this.showID = showid;
 	}
 
 	public int getShowID() {
-    	return showid;
+    	return showID;
     }
     
     public String getShowTitle() {
@@ -82,6 +81,14 @@ public class Show {
     
     public List<ShowImage> getImages(){
     	return this.images;
+    }
+    
+    public List<UserReview> getUserReviews() {
+    	return this.userReviews;
+    }
+    
+    public List<CreditsRoll> getCreditsRolls() {
+    	return this.creditsRolls;
     }
 
 

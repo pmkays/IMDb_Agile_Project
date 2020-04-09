@@ -5,12 +5,12 @@ import java.util.Date;
 public class UserReview {
     private int reviewID;
     private int showID;
-    private String userID;
+    private int userID;
     private int rating;
     private String review;
     private Date date;
 
-    public UserReview(int reviewID, int showID, String userID, int rating,
+    public UserReview(int reviewID, int showID, int userID, int rating,
     				String review, Date date) {
         this.reviewID = reviewID;
         this.showID = showID;
@@ -37,6 +37,18 @@ public class UserReview {
     }
 
     public Date getDate() {
-        return date;
+        return this.date;
+    }
+    
+    public int getReviewID() {
+    	return this.reviewID;
+    }
+    
+    public int getShowID() {
+    	return this.showID;
+    }
+    
+    public int getUserID() {
+    	return this.userID;
     }
 }

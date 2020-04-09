@@ -32,7 +32,7 @@ public class UserReviewDAO {
                 // 2) Add it to the list we have prepared
             	int reviewID1 = result.getInt("reviewId");
         		int showID = result.getInt("show_id");
-        		String userID = result.getString("user_id");
+        		int userID = result.getInt("user_id");
         		int rating = result.getInt("rating");
         		String review = result.getString("review");
         		Date date = result.getDate("date");
