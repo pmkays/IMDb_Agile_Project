@@ -5,12 +5,12 @@
 </head>
 
 <body class = "body">
-    <h1>Search results for: "${query}"</h1>
+    <h3>Search results for: "${query}"</h3>
     <div id = "container">
         #foreach( $show in ${shows} )
             <div class = "resultbox">
-                <h2><a href = "/show/?show=${show.getShowID()}">${show.getShowTitle()}</a></h2>
-                <h3>${show.getYear()} | ${show.getGenre()}</h3>
+                <a href = "/show/?show=${show.getShowID()}">${show.getShowTitle()}</a><br>
+                ${show.getYear()} | ${show.getGenre()}
                 <p>${show.getSynopsis()}</p>
             </div>
         #end

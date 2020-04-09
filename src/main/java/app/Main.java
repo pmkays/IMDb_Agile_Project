@@ -1,29 +1,19 @@
 package app;
 
+import static io.javalin.apibuilder.ApiBuilder.get;
+import static io.javalin.apibuilder.ApiBuilder.post;
 
 import app.controller.AccountController;
 import app.controller.IndexController;
 import app.controller.LoginController;
 import app.controller.ShowController;
 import app.controller.UserReviewController;
-import app.controller.paths.Template;
 import app.controller.paths.Web;
 import app.controller.utils.ViewUtil;
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 
-import static io.javalin.apibuilder.ApiBuilder.get;
-import static io.javalin.apibuilder.ApiBuilder.post;
-
-
-
-
-
 public class Main {
-
-
-
-
 
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {

@@ -26,7 +26,7 @@ public class DatabaseUtils {
             // Prepare the information to connect (hard-coded)
             String url = "jdbc:mysql://localhost:3306/imdb?serverTimezone=Australia/Sydney";
             String user = "root";
-            String password = "root1";
+            String password = "abc123";
 
             // Connect through the Driver
             connection = DriverManager.getConnection(url, user, password);
