@@ -28,6 +28,16 @@ public class ShowController
         ctx.render(Template.SHOW, model);
     };
 
+    public static Handler serveResultsPage = ctx -> {
+        Map<String, Object> model = ViewUtil.baseModel(ctx);
+
+        String searchText = ctx.queryParam("showTitleSearch");
+        List<Show> shows = ShowDAO.getAllShowsByTitleFilter(searchText);
+        model.put("shows", shows);
+        model.put("query", searchText);
+        ctx.render(Template.SEARCH_RESULTS, model);
+    };
+
     public static Handler serveSearchByActorPage = ctx ->
     {
         Map<String, Object> model = ViewUtil.baseModel(ctx);

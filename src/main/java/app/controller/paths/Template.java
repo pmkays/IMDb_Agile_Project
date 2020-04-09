@@ -13,5 +13,6 @@ public class Template {
     public static final String USER_REVIEW = "/velocity/show/user_review.vm";
     public static final String PERSON = "/velocity/person/person.vm";
     public static final String SEARCH_BY_ACTOR = "/velocity/searchByActor/searchByActor.vm";
+    public static final String SEARCH_RESULTS = "/velocity/searchresults/searchresults.vm";
 
 }

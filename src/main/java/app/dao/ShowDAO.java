@@ -1,13 +1,22 @@
 package app.dao;
 
 import app.dao.utils.DatabaseUtils;
-import app.model.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import app.dao.utils.DatabaseUtils;
+import app.model.CreditsRoll;
+import app.model.Person;
+import app.model.ProductionCompany;
+import app.model.Show;
+import app.model.ShowImage;
+import app.model.UserReview;
+
+import javax.xml.transform.Result;
 
 public class ShowDAO {
 
@@ -45,7 +54,35 @@ public class ShowDAO {
     
 
 	public static List<Show> getAllShowsByTitleFilter(String filter) {
-		//TO DO LUKE
+		List<Show> shows = new ArrayList<>();
+
+		try{
+		    String sql = "SELECT * FROM `show`, production_company " +
+                    "WHERE upper(show_title) like '%" + filter.toUpperCase() + "%'" +
+                    "AND production_company.proco_id = `show`.proco_id";
+
+		    Connection connection = DatabaseUtils.connectToDatabase();
+		    Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            while(result.next()) {
+                ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
+                        result.getString("proco_name"));
+                shows.add(
+                        new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
+                                result.getBoolean("movie"), result.getBoolean("series"),  productionCompany,
+                                result.getString("genre"), result.getInt("year"), result.getString("synopsis"))
+                );
+            }
+
+            DatabaseUtils.closeConnection(connection);
+
+        }
+		catch (Exception e){
+		    e.printStackTrace();
+        }
+
+		if(!shows.isEmpty()) return shows;
 		return null;
 	}
 	
