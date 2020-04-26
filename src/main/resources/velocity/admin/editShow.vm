@@ -1,0 +1,61 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<body class = "body">
+	<h1> Edit a Show </h1>
+	<form action = "/show/edit/" method ="post">
+		<div class="form-group">
+			<label for = "show_title">Title: </label>
+			<input type = "text" name = "show_title" id = "show_title" class="form-control" value ="${show.getShowTitle()}" required>
+		</div>
+		<div class="form-group">
+			<label for = "genre">Genre: </label>
+			<input type = "text" name="genre" id="genre" class="form-control" value ="${show.getGenre()}" required>
+		</div>
+		<div class="form-group">
+			<label for = "length">Length: </label>
+			<input pattern="^\d*(\.\d{0,2})?$" name="length" id="genre" class="form-control" value ="${show.getLength()}" required>
+		</div>
+		<div class="form-group">
+			<label for = "type">Type: </label>
+			<select name="type" id = "type" class="form-control">
+				<option value = "0" #if(${show.getType()} == 0)selected#else#end>Movie</option>
+				<option value = "1" #if(${show.getType()} == 1)selected#else#end>Tv Series</option>				
+			</select>
+		</div>
+		<div class="form-group">		
+			<label for = "production_company"> Production Company: </label>
+			<input type="text" id="production_company" name = "production_company" class="form-control" value ="${show.getProco().getName()}" required>
+		</div>
+		<div class="form-group">
+			<label for = "year"> Year: </label>
+			<input type ="text" id = "year" name="year" class="form-control" value ="${show.getYear()}" required>
+		</div>
+		<div class="form-group">
+			<label for = "synopsis"> Synopsis: </label>
+			<textarea id="synopsis" name = "synopsis" class="form-control" required>${show.getSynopsis()}</textarea>
+		</div>
+		<div class="form-group">
+			<label for = "status"> Status: </label>
+			<select name="status" id = "status" class="form-control">
+				<option value = "0" #if(${show.getStatus()} == ${submitted})selected#else#end>Submitted</option>
+				<option value = "1" #if(${show.getStatus()} == ${under_inv})selected#else#end>Under Investigation</option>				
+				<option value = "2" #if(${show.getStatus()} == ${pending})selected#else#end>Pending</option>
+				<option value = "3" #if(${show.getStatus()} == ${suspended})selected#else#end>Suspended</option>
+				<option value = "4" #if(${show.getStatus()} == ${visible})selected#else#end>Visible</option>
+				<option value = "5" #if(${show.getStatus()} == ${rejected})selected#else#end>Rejected</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<input type="hidden" id="show_id" name="show_id" value ="${show.getShowID()}">
+			<div class="container">
+			  <div class="row">
+			    <div class="col text-center">
+			      <input type="submit" class="btn btn-primary center-block">
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</form>
+</body>
+
+#end

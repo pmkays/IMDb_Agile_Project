@@ -246,6 +246,39 @@ public class ShowDAO {
 		
 		return success;
 	}
+	
+	public static boolean EditShow(Show showToEdit) {
+		boolean success = true;
+
+		try {
+			String sql = String.format("UPDATE `show` SET show_title = '%s', "
+					+ "genre = '%s',length = %f, `type` = %d, proco_id = %d, "
+					+ "`year` = %d, synopsis = '%s', `status`= %d "
+					+ "WHERE show_id = %d", 
+					showToEdit.getShowTitle(), showToEdit.getGenre(), 
+					showToEdit.getLength(), showToEdit.getType(), 
+					showToEdit.getProco().getProductID(), 
+					showToEdit.getYear(), showToEdit.getSynopsis(), 
+					showToEdit.getStatus(), showToEdit.getShowID());
+			
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+			if(rowCount == 0){
+				success = false;
+			}
+			
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+			
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
+
 
 
 }
