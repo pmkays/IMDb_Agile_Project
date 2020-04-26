@@ -19,5 +19,6 @@ public class Web {
     public static final String SEARCH_FOR_ACTOR = "/searchForActor";
     public static final String SEARCH_RESULTS = "/searchresults";
     public static final String ACTOR = "/actor";
-    public static final String ADD_SHOW = "/show/addNew";
+    public static final String ADD_SHOW = "/show/new";
+    public static final String EDIT_SHOW = "/show/edit";
 }
