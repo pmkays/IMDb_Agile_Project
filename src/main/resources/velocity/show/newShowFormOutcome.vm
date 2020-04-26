@@ -1,0 +1,13 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+	
+</head>
+<body class = "body">
+<!--show different error msgs depending on type of user-->
+	<div class = "jumbotron">
+		<h3>${status}</h3>
+	</div>
+</body>
+
+#end

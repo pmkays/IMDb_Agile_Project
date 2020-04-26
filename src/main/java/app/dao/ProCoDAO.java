@@ -40,5 +40,34 @@ public class ProCoDAO {
         if(!productionCompanies.isEmpty()) return productionCompanies.get(0);
         return null;
     }
+	
+	public static ProductionCompany getProductionCompanyByName(String procName) {
+
+		ProductionCompany productionCompany = null;
+
+        try {
+            String sql = "SELECT * FROM production_company WHERE upper(proco_name) LIKE '%" + procName.toUpperCase() +"%'";
+
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);         
+            result.next();
+            
+        	int procoID = result.getInt("proco_id");
+    		String procoName = result.getString("proco_name");
+    		
+    		productionCompany = new ProductionCompany(procoID, procoName);
+
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (productionCompany != null) {
+			return productionCompany;
+		}
+		return null;
+    }
 
 }
