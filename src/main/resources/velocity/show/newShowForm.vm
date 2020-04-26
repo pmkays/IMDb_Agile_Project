@@ -1,0 +1,42 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+	
+</head>
+<body class = "body">
+	<h1> Add a new show </h1>
+	<form action = "/show/addNew" method ="post">
+	
+		<label for = "show_title">Title: </label>
+		<input type = "text" name = "show_title" id = "show_title" required><br><br>
+		
+		<label for = "genre">Genre: </label>
+		<input type = "text" name="genre" id="genre" required><br><br>
+		
+		<label for = "length">Length: </label>
+		<input pattern="^\d*(\.\d{0,2})?$" name="length" id="genre" required><br><br>
+		
+		<label for = "movie">Type: </label>
+		<select name="movie" id = "movie">
+			<option value = "0">Movie</option>
+			<option value = "1">Tv Series</option>
+		</select><br><br>
+				
+		<label for = "production_company"> Production Company: </label>
+		<input type="text" id="production_company" name = "production_company" required><br><br>
+		
+		<label for = "year"> Year: </label>
+		<input type ="int" id = "year" name="year" required><br><br>
+		
+		<label for = "synopsis"> Synopsis: </label>
+		<textarea id="synopsis" name = "synopsis" required></textarea><br><br>
+		
+		<label for = "year"> Year: </label>
+		<input type ="int" id = "year" name="year" required><br><br>
+		
+		<input type="hidden" id="status" name="status" value="0">
+		<input type="submit"><br><br>
+	</form>
+</body>
+
+#end
