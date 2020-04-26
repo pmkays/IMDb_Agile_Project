@@ -5,7 +5,9 @@
 </head>
 <body class = "body">
 <!--show different error msgs depending on type of user-->
-	<h1>${status}</h1>
+	<div class = "jumbotron">
+		<h3>${status}</h3>
+	</div>
 </body>
 
 #end
