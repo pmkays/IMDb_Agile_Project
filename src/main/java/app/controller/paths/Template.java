@@ -15,5 +15,6 @@ public class Template {
     public static final String SEARCH_BY_ACTOR = "/velocity/searchByActor/searchByActor.vm";
     public static final String SEARCH_FOR_ACTOR = "/velocity/searchForActor/searchForActor.vm";
     public static final String SEARCH_RESULTS = "/velocity/searchresults/searchresults.vm";
+    public static final String NEW_SHOW_FORM = "/velocity/show/newShowForm.vm";
 
 }

@@ -39,7 +39,9 @@ public class Main {
             get(Web.SEARCH_FOR_ACTOR, ActorController.serveSearchForActorPage);
             get(Web.SEARCH_RESULTS, ShowController.serveResultsPage);
             get(Web.ACTOR, ActorController.serveActorPage);
-         
+           
+            get(Web.ADD_SHOW, ShowController.serveAddNewShowForm);
+            post(Web.ADD_SHOW, ShowController.handleAddNewShowForm);
 
             // Add new actions here
             // Seeing pages (get) and sending information in forms (post)

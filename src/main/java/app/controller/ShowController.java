@@ -47,4 +47,14 @@ public class ShowController
         model.put("query", searchText);
         ctx.render(Template.SEARCH_BY_ACTOR, model);
     };
+    
+    public static Handler serveAddNewShowForm = ctx ->{
+    	Map<String, Object> model = ViewUtil.baseModel(ctx);
+    	ctx.render(Template.NEW_SHOW_FORM, model);
+    };
+    	
+    
+    public static Handler handleAddNewShowForm = ctx ->{
+    };
+    
 }
