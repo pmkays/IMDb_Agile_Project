@@ -1,0 +1,73 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+	<link rel="stylesheet" href="/reviewForm.css">
+</head>
+<body class = "body">
+#if($review != false)
+	<h1> Edit Review</h1>
+#else
+	<h1> Add Review</h1>
+#end
+	<hr>
+	<p> For movie: ${show.getShowTitle()}</p>
+	<form action = "/user_review_submit" method ="post">
+		<div class="rating form-group">
+		 <label>
+		    <input type="radio" name="rating" value="1" required/>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		  </label>
+		  <label>
+		    <input type="radio" name="rating" value="2" />
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		  </label>
+		  <label>
+		    <input type="radio" name="rating" value="3" />
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>   
+		  </label>
+		  <label>
+		    <input type="radio" name="rating" value="4" />
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		  </label>
+		  <label>
+		    <input type="radio" name="rating" value="5" />
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		    <span class="icon"><i class="fas fa-star"></i></span>
+		  </label>
+		</div>
+		
+		<div class="form-group">
+			<label for = "title">Title: <span class="optional">(Optional)</span> </label>
+			<input class="form-control"  type ="text" name="title" id="title" placeholder="Entire review title..." value="
+#if($review != false)
+${review.getTitle()}
+#end">
+		</div>
+		
+		<div class="form-group">
+			<label for="review">Review: <span class="optional">(Optional)</span> </label>
+			<textarea class="form-control" name="review" rows="5" cols="33" style="resize: none;" placeholder="Enter review here...">#if($review != false)
+${review.getReview()}
+#end</textarea>
+		</div>
+		
+		<input class="form-control" type ="hidden" name="showID" id="show_id" value="${show.getShowID()}" required>
+		<input class="form-control" type ="hidden" name="edit" id="show_id" value="
+#if($review != false)
+yes	 
+#end" required>
+		
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</body>
+
+#end

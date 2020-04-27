@@ -34,9 +34,10 @@ public class ShowDAO {
 						result.getString("proco_name"));
 
 				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
-						result.getDouble("length"), result.getInt("type"),
-						productionCompany, result.getString("genre"), result.getInt("year"),
-						result.getString("synopsis"), result.getInt("status"));
+                        result.getDouble("length"), result.getInt("type"),
+                        productionCompany, result.getString("genre"), result.getInt("year"),
+                        result.getString("synopsis"), result.getInt("status"));
+
 
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 
@@ -76,9 +77,10 @@ public class ShowDAO {
 						result.getString("proco_name"));
 
 				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
-						result.getDouble("length"), result.getInt("type"),
-						productionCompany, result.getString("genre"), result.getInt("year"),
-						result.getString("synopsis"), result.getInt("status"));
+                        result.getDouble("length"), result.getInt("type"),
+                        productionCompany, result.getString("genre"), result.getInt("year"),
+                        result.getString("synopsis"), result.getInt("status"));
+
 
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 				List<ShowImage> images = new ArrayList<ShowImage>();
@@ -118,9 +120,9 @@ public class ShowDAO {
 						result.getString("proco_name"));
 				
 				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
-						result.getDouble("length"), result.getInt("type"),
-						productionCompany, result.getString("genre"), result.getInt("year"),
-						result.getString("synopsis"), result.getInt("status"));
+                        result.getDouble("length"), result.getInt("type"),
+                        productionCompany, result.getString("genre"), result.getInt("year"),
+                        result.getString("synopsis"), result.getInt("status"));
 				
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 				List<ShowImage> images = new ArrayList<ShowImage>();
@@ -189,33 +191,6 @@ public class ShowDAO {
 			return creditsRoll;
 		return null;
 	}
-
-	public static List<UserReview> getUserReviewByShowID(String showID) {
-		List<UserReview> userReviews = new ArrayList<>();
-
-		try {
-			String sql = "SELECT * FROM credits_roll WHERE show_id =" + showID;
-
-			Connection connection = DatabaseUtils.connectToDatabase();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(sql);
-
-			while (result.next()) {
-				userReviews.add(
-						new UserReview(result.getInt("reviewID"), result.getInt("show_id"), result.getInt("user_id"),
-								result.getInt("rating"), result.getString("review"), result.getDate("date")));
-			}
-
-			DatabaseUtils.closeConnection(connection);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (!userReviews.isEmpty())
-			return userReviews;
-		return null;
-
-	}
 	
 	public static boolean AddNewShow(Show showToAdd) {
 		boolean success = true;
@@ -278,7 +253,6 @@ public class ShowDAO {
 		
 		return success;
 	}
-
 
 
 }

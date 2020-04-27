@@ -14,7 +14,4 @@ public class RequestUtil {
         return (String) ctx.sessionAttribute("currentUser");
     }
 
-
-
-
 }
