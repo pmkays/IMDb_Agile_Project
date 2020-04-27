@@ -55,6 +55,54 @@ public class UserReviewDAO {
         // If we are here, something bad happened
         return null;
     }
+    //INSERT into user_review(show_id, user_id, rating, title, review, `date`) values (1,'caramel6',3,'wow','this movie suxx', curdate());
+    public static void insertReview(String showID, String userID, int rating, String title, String review) {
+
+        try {
+            // Here you prepare your sql statement
+            String sql = "INSERT into user_review"
+            		+ "(show_id, user_id, rating, title, review, `date`) "
+            		+ "values (" + showID + ",'"+ userID +"',"+ rating +",'"+ title
+            		+"','"+ review +"', curdate());";
+
+            // Execute the query
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+
+            // Close it
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    public static double getShowAverageRating(String showID) {
+    	//SELECT AVG(rating) FROM imdb.user_review;
+    	double rating = 0.0;
+        try {
+            // Here you prepare your sql statement
+            String sql = "SELECT AVG(rating) as average FROM imdb.user_review WHERE show_id='"+showID+"';";
+
+            // Execute the query
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            result.next();
+            
+            rating = result.getDouble("average");
+
+            // Close it
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return rating;
+    }
 
 
 

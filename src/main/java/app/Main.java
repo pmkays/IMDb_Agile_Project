@@ -34,6 +34,8 @@ public class Main {
 
             get(Web.ACCOUNT, AccountController.serveAccountPage);
             get(Web.SHOW, ShowController.serveShowPage);
+            get(Web.USER_REVIEW_FORM, UserReviewController.serveReviewForm);
+            post(Web.USER_REVIEW_SUBMIT, UserReviewController.serveReviewSubmit);
             get(Web.USER_REVIEW, UserReviewController.serveReviewPage);
             get(Web.SEARCH_BY_ACTOR, ShowController.serveSearchByActorPage);
             get(Web.SEARCH_FOR_ACTOR, ActorController.serveSearchForActorPage);

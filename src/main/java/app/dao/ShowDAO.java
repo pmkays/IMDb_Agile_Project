@@ -34,9 +34,9 @@ public class ShowDAO {
 						result.getString("proco_name"));
 
 				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
-						result.getDouble("length"), result.getBoolean("movie"), result.getBoolean("series"),
-						productionCompany, result.getString("genre"), result.getInt("year"),
-						result.getString("synopsis"));
+                        result.getDouble("length"), result.getInt("type"),
+                        productionCompany, result.getString("genre"), result.getInt("year"),
+                        result.getString("synopsis"), result.getInt("status"));
 
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 
@@ -76,9 +76,9 @@ public class ShowDAO {
 						result.getString("proco_name"));
 
 				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
-						result.getDouble("length"), result.getBoolean("movie"), result.getBoolean("series"),
-						productionCompany, result.getString("genre"), result.getInt("year"),
-						result.getString("synopsis"));
+                        result.getDouble("length"), result.getInt("type"),
+                        productionCompany, result.getString("genre"), result.getInt("year"),
+                        result.getString("synopsis"), result.getInt("status"));
 
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 				List<ShowImage> images = new ArrayList<ShowImage>();
@@ -117,9 +117,10 @@ public class ShowDAO {
 				ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
 						result.getString("proco_name"));
 				
-				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"), result.getDouble("length"),
-						result.getBoolean("movie"), result.getBoolean("series"), productionCompany,
-						result.getString("genre"), result.getInt("year"), result.getString("synopsis"));
+				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
+                        result.getDouble("length"), result.getInt("type"),
+                        productionCompany, result.getString("genre"), result.getInt("year"),
+                        result.getString("synopsis"), result.getInt("status"));
 				
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 				List<ShowImage> images = new ArrayList<ShowImage>();

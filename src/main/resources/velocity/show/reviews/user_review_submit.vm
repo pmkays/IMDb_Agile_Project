@@ -1,0 +1,10 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+	
+</head>
+<body class = "body">
+	<h1>Success</h1>
+</body>
+
+#end
