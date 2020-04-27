@@ -34,6 +34,19 @@ public class Show {
     	this.status = status;
     }
     
+    public Show(String showTitle, double length,
+    		int type, ProductionCompany productionCompany,
+    		String genre, int year, String synopsis, int status) {
+    	this.showTitle = showTitle;
+    	this.length = length;
+    	this.type = type;
+    	this.productionCompany = productionCompany;
+    	this.genre = genre;
+    	this.year = year;
+    	this.synopsis = synopsis;
+    	this.status = status;
+    }
+    
     public Show(int showid) {
 		this.showID = showid;
 	}

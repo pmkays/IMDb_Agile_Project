@@ -38,6 +38,7 @@ public class ShowDAO {
                         productionCompany, result.getString("genre"), result.getInt("year"),
                         result.getString("synopsis"), result.getInt("status"));
 
+
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 
 				List<ShowImage> images = new ArrayList<ShowImage>();
@@ -79,6 +80,7 @@ public class ShowDAO {
                         result.getDouble("length"), result.getInt("type"),
                         productionCompany, result.getString("genre"), result.getInt("year"),
                         result.getString("synopsis"), result.getInt("status"));
+
 
 				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
 				List<ShowImage> images = new ArrayList<ShowImage>();
@@ -189,5 +191,68 @@ public class ShowDAO {
 			return creditsRoll;
 		return null;
 	}
+	
+	public static boolean AddNewShow(Show showToAdd) {
+		boolean success = true;
+
+		try {
+			String sql = String.format("INSERT INTO `show` (show_title, genre, "
+					+ "length, `type`, proco_id, `year`, synopsis, `status`) VALUES "
+					+ "('%s','%s',%f,%d,%d,%d,'%s', %d);", 
+					showToAdd.getShowTitle(), showToAdd.getGenre(), 
+					showToAdd.getLength(), showToAdd.getType(), showToAdd.getProco().getProductID(), 
+					showToAdd.getYear(), showToAdd.getSynopsis(), showToAdd.getStatus());
+			
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+			
+			if(rowCount == 0){
+				success = false;
+			}
+			
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+			
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
+	
+	public static boolean EditShow(Show showToEdit) {
+		boolean success = true;
+
+		try {
+			String sql = String.format("UPDATE `show` SET show_title = '%s', "
+					+ "genre = '%s',length = %f, `type` = %d, proco_id = %d, "
+					+ "`year` = %d, synopsis = '%s', `status`= %d "
+					+ "WHERE show_id = %d", 
+					showToEdit.getShowTitle(), showToEdit.getGenre(), 
+					showToEdit.getLength(), showToEdit.getType(), 
+					showToEdit.getProco().getProductID(), 
+					showToEdit.getYear(), showToEdit.getSynopsis(), 
+					showToEdit.getStatus(), showToEdit.getShowID());
+			
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+			if(rowCount == 0){
+				success = false;
+			}
+			
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+			
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
+
 
 }

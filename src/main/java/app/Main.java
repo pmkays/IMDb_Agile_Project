@@ -44,6 +44,9 @@ public class Main {
            
             get(Web.ADD_SHOW, ShowController.serveAddNewShowForm);
             post(Web.ADD_SHOW, ShowController.handleAddNewShowForm);
+            
+            get(Web.EDIT_SHOW, ShowController.serveEditShowForm);
+            post(Web.EDIT_SHOW, ShowController.handleEditShowForm);
 
             // Add new actions here
             // Seeing pages (get) and sending information in forms (post)
