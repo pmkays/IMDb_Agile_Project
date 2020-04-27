@@ -190,31 +190,4 @@ public class ShowDAO {
 		return null;
 	}
 
-	public static List<UserReview> getUserReviewByShowID(String showID) {
-		List<UserReview> userReviews = new ArrayList<>();
-
-		try {
-			String sql = "SELECT * FROM credits_roll WHERE show_id =" + showID;
-
-			Connection connection = DatabaseUtils.connectToDatabase();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(sql);
-
-			while (result.next()) {
-				userReviews.add(
-						new UserReview(result.getInt("reviewID"), result.getInt("show_id"), result.getInt("user_id"),
-								result.getInt("rating"), result.getString("review"), result.getDate("date")));
-			}
-
-			DatabaseUtils.closeConnection(connection);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (!userReviews.isEmpty())
-			return userReviews;
-		return null;
-
-	}
-
 }

@@ -17,8 +17,19 @@ public class UserReviewController {
     public static Handler serveReviewForm = ctx -> {
         Map<String, Object> model = ViewUtil.baseModel(ctx);
         String showID = ctx.queryParam("show");
-        Show show = ShowDAO.getShowByID(showID);
-        model.put("show", show);
+        String userID = ctx.sessionAttribute("currentUser");
+    	Show show = ShowDAO.getShowByID(showID);
+        
+        UserReview userReview = UserReviewDAO.getReviewByShowAndUser(showID, userID);
+        
+        if(userReview == null) {
+            model.put("show", show);
+            model.put("review", false);
+        } else {
+        	model.put("show", show);
+            model.put("review", userReview);
+        }
+        
         ctx.render(Template.USER_REVIEW_FORM, model);
     };
 
@@ -28,11 +39,20 @@ public class UserReviewController {
         String title = ctx.formParam("title");
         String review = ctx.formParam("review");
         String showID = ctx.formParam("showID");
+        String edit = ctx.formParam("edit");
         String userID = ctx.sessionAttribute("currentUser");
         
-        UserReviewDAO.insertReview(showID, userID, rating, title, review);
-        model.put("currUser", userID);
-        ctx.render(Template.USER_REVIEW_SUBMIT, model);
+        if(edit.trim().equals("yes")) {
+        	UserReviewDAO.updateReview(showID, userID, rating, title, review);
+            model.put("currUser", userID);
+            model.put("showID", showID);
+            ctx.render(Template.USER_REVIEW_SUBMIT, model);
+        }else {
+        	UserReviewDAO.insertReview(showID, userID, rating, title, review);
+            model.put("currUser", userID);
+            model.put("showID", showID);
+            ctx.render(Template.USER_REVIEW_SUBMIT, model);
+        }
     };
     
     public static Handler serveReviewPage = ctx -> {
