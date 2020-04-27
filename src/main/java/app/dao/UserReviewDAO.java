@@ -140,7 +140,7 @@ public class UserReviewDAO {
 
         try {
             // Here you prepare your sql statement
-            String sql = "SELECT * FROM user_review WHERE user_id='" + userID + "';";
+            String sql = "SELECT * FROM user_review, `show` WHERE user_review.show_id = `show`.show_id AND user_id='" + userID + "';";
 
             // Execute the query
             Connection connection = DatabaseUtils.connectToDatabase();
@@ -157,9 +157,10 @@ public class UserReviewDAO {
         		String title = result.getString("title");
         		String review = result.getString("review");
         		Date date = result.getDate("date");
+        		String showName = result.getString("show_title");
         		
                 userReviews.add(
-                  new UserReview(reviewID, retrievedShowID, retrievedUserID, rating, title, review, date)
+                  new UserReview(reviewID, retrievedShowID, retrievedUserID, rating, title, review, date, showName)
                 );
             }
 

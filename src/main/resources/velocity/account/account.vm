@@ -45,7 +45,7 @@
 		<h1 class = "centred">My Reviews</h1>
 		<table class = "table">
 			<tr>
-				<th>Show ID</th>
+				<th>Show Name</th>
 				<th>Title</th>
 				<th>Rating</th>
 				<th>Review</th>
@@ -54,7 +54,7 @@
 			</tr>
 			#foreach( $review in ${reviews} )
 			    <tr>
-					<td>${review.getShowID()}</td>
+					<td>${review.getShowName()}</td>
 					<td>${review.getTitle()}</td>
 					<td>${review.getRating()}</td>
 					<td>${review.getReview()}</td>
