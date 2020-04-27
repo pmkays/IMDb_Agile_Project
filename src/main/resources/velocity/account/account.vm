@@ -1,4 +1,69 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
-Complete this to handle account information
+
+<head>
+	<link rel="stylesheet" href="/account.css">
+</head>
+<div class = "bottompadding">
+	<h1 class = "centred">My Profile</h1>
+	<hr>
+	<div class = "row">
+		<div class = "col">
+			<p class ="bold centred">First Name:</p>
+			<p class = "bottompadding centred">${account.getFirstName()}</p>
+		</div>
+		<div class = "col">
+			<p class ="bold centred">Last Name:</p>
+			<p class = "bottompadding centred">${account.getLastName()}</p>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col">
+			<p class ="bold centred">Username:</p>
+			<p class = "bottompadding centred">${account.getUsername()}</p>
+		</div>
+		<div class = "col">
+			<p class ="bold centred">Email:</p>
+			<p class = "bottompadding centred">${account.getEmail()}</p>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col">
+			<p class ="bold centred">Country:</p>
+			<p class = "bottompadding centred">${account.getCountry()}</p>
+		</div>
+		<div class = "col">
+			<p class ="bold centred">Gender:</p>
+			<p class = "bottompadding centred">${account.getGender()}</p>
+		</div>
+	</div>
+</div>
+
+<div class = "bottompadding">
+	
+	<div>
+		<h1 class = "centred">My Reviews</h1>
+		<table class = "table">
+			<tr>
+				<th>Show ID</th>
+				<th>Title</th>
+				<th>Rating</th>
+				<th>Review</th>
+				<th>Date</th>
+				<th></th>
+			</tr>
+			#foreach( $review in ${reviews} )
+			    <tr>
+					<td>${review.getShowID()}</td>
+					<td>${review.getTitle()}</td>
+					<td>${review.getRating()}</td>
+					<td>${review.getReview()}</td>
+					<td>${review.getDate()}</td>
+					<td> <a href ="/user_review_form?show=${review.getShowID()}">edit</a></td>
+				</tr>
+		 	#end
+		</table>
+	</div>
+	
+</div>
 #end
