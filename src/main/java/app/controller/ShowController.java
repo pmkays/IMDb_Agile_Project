@@ -58,6 +58,8 @@ public class ShowController
     
     public static Handler serveAddNewShowForm = ctx ->{
     	Map<String, Object> model = ViewUtil.baseModel(ctx);
+    	List<ProductionCompany> productionCompanies = ProCoDAO.getAllProductionCompanies();
+    	model.put("procos", productionCompanies);
     	ctx.render(Template.NEW_SHOW_FORM, model);
     };
     	
@@ -68,7 +70,7 @@ public class ShowController
     	String genre = ctx.formParam("genre");
     	Double length = Double.parseDouble(ctx.formParam("length"));
     	int type = Integer.parseInt(ctx.formParam("type"));
-    	ProductionCompany proco = ProCoDAO.getProductionCompanyByName(ctx.formParam("production_company"));
+    	ProductionCompany proco = ProCoDAO.getProductionCompanyByID(Integer.parseInt(ctx.formParam("production_company")));
     	int year = Integer.parseInt(ctx.formParam("year"));
     	String synopsis = ctx.formParam("synopsis");
     	int status = Integer.parseInt(ctx.formParam("status"));	

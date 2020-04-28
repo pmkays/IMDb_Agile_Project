@@ -69,5 +69,35 @@ public class ProCoDAO {
 		}
 		return null;
     }
+	
+	public static List<ProductionCompany> getAllProductionCompanies(){
+
+		List<ProductionCompany> productionCompanies = new ArrayList<ProductionCompany>(); 
+
+        try {
+            String sql = "SELECT * FROM production_company";
+
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            
+            while(result.next()) {
+            	int procoID = result.getInt("proco_id");
+        		String procoName = result.getString("proco_name");
+        		ProductionCompany proco = new ProductionCompany(procoID, procoName);
+        		productionCompanies.add(proco);
+            }
+
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (productionCompanies.isEmpty()) {
+			return null;
+		}
+		return productionCompanies;
+    }
 
 }
