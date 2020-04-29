@@ -1,10 +1,12 @@
 package app.controller;
 import app.controller.paths.Template;
 import app.controller.utils.ViewUtil;
+import app.dao.PersonDAO;
 import app.dao.ProCoDAO;
 import app.dao.ShowDAO;
 import app.dao.UserReviewDAO;
 import app.model.CreditsRoll;
+import app.model.Person;
 import app.model.ProductionCompany;
 import app.model.Show;
 import app.model.Enumerations.ShowStatus;
@@ -13,6 +15,8 @@ import io.javalin.http.Handler;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.jws.WebParam.Mode;
 
 
 public class ShowController
@@ -58,8 +62,13 @@ public class ShowController
     
     public static Handler serveAddNewShowForm = ctx ->{
     	Map<String, Object> model = ViewUtil.baseModel(ctx);
+    	
     	List<ProductionCompany> productionCompanies = ProCoDAO.getAllProductionCompanies();
+    	List<Person> people = PersonDAO.getAllPeople();
+    	
+    	model.put("PersonDAO", PersonDAO.class);
     	model.put("procos", productionCompanies);
+    	model.put("people", people);
     	ctx.render(Template.NEW_SHOW_FORM, model);
     };
     	

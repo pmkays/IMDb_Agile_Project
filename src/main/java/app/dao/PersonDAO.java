@@ -12,6 +12,7 @@ import app.dao.utils.DatabaseUtils;
 import app.model.ActorImage;
 import app.model.CreditsRoll;
 import app.model.Person;
+import app.model.ProductionCompany;
 import app.model.Show;
 
 public class PersonDAO {
@@ -138,5 +139,34 @@ public class PersonDAO {
 		}
 		return null;
 	}
+	
+	public static List<Person> getAllPeople(){
+
+		List<Person> people = new ArrayList<Person>(); 
+
+        try {
+            String sql = "SELECT * FROM person";
+
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            
+            while(result.next()) {
+            	Person person = new Person(result.getInt("person_id"), result.getString("fullname"),
+						result.getString("role"), result.getDate("birthdate"), result.getString("bio"));
+            	people.add(person);
+            }
+
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (people.isEmpty()) {
+			return null;
+		}
+		return people;
+    }
 
 }
