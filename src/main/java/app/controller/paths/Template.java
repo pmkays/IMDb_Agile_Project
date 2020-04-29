@@ -18,5 +18,6 @@ public class Template {
     public static final String NEW_SHOW_FORM = "/velocity/show/newShowForm.vm";
     public static final String FORM_OUTCOME = "/velocity/show/formOutcome.vm";
     public static final String ADMIN_EDIT_SHOW = "/velocity/admin/editShow.vm";
+    public static final String ADMIN_SHOW_BY_STATUS = "/velocity/admin/showByStatus.vm";
 
 }

@@ -46,6 +46,8 @@ public class Main {
             get(Web.EDIT_SHOW, ShowController.serveEditShowForm);
             post(Web.EDIT_SHOW, ShowController.handleEditShowForm);
 
+            get(Web.SHOW_BY_STATUS, ShowController.serveShowsByStatusPage);
+
             // Add new actions here
             // Seeing pages (get) and sending information in forms (post)
         });
