@@ -30,6 +30,7 @@ CREATE TABLE `account` (
   `gender` varchar(10) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
+  `role` varchar(45) NOT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,7 +42,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('caramel6','$2a$10$h.dl5J86rGH7I8bD9bZeZeci0pDt0.VwFTGujlnEaZXPf/q7vM5wO','caramelwilson@gmail.com','Australia','Female','Cara','Wilson');
+INSERT INTO `account` VALUES ('caramel6','$2a$10$h.dl5J86rGH7I8bD9bZeZeci0pDt0.VwFTGujlnEaZXPf/q7vM5wO','caramelwilson@gmail.com','Australia','Female','Cara','Wilson', 'general');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,11 +140,11 @@ CREATE TABLE `show` (
   `show_title` varchar(45) NOT NULL,
   `genre` varchar(45) NOT NULL,
   `length` decimal(3,2) NOT NULL,
-  `movie` int(11) NOT NULL DEFAULT '1',
-  `series` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) NOT NULL,
   `proco_id` int(11) NOT NULL,
   `year` int(4) NOT NULL DEFAULT '2020',
   `synopsis` varchar(1000) NOT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`show_id`),
   KEY `fk_proco_idx` (`proco_id`),
   CONSTRAINT `fk_proco` FOREIGN KEY (`proco_id`) REFERENCES `production_company` (`proco_id`)
@@ -156,7 +157,7 @@ CREATE TABLE `show` (
 
 LOCK TABLES `show` WRITE;
 /*!40000 ALTER TABLE `show` DISABLE KEYS */;
-INSERT INTO `show` VALUES (1,'Star Wars: Episode IX - The Rise of Skywalker','Action',2.22,1,0,9,2019,'The surviving members of the resistance face the First Order once again, and the legendary conflict between the Jedi and the Sith reaches its peak bringing the Skywalker saga to its end.');
+INSERT INTO `show` VALUES (1,'Star Wars: Episode IX - The Rise of Skywalker','Action',2.22,0,9,2019,'The surviving members of the resistance face the First Order once again, and the legendary conflict between the Jedi and the Sith reaches its peak bringing the Skywalker saga to its end.',4);
 /*!40000 ALTER TABLE `show` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +207,8 @@ CREATE TABLE `user_review` (
   `show_id` int(11) NOT NULL,
   `user_id` varchar(45) NOT NULL,
   `rating` int(1) NOT NULL DEFAULT '3',
-  `review` varchar(255) NOT NULL,
+  `title` varchar(45),
+  `review` varchar(255),
   `date` datetime NOT NULL,
   PRIMARY KEY (`reviewId`),
   KEY `fk_show_id_idx` (`show_id`),
@@ -235,17 +237,17 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2020-02-17 11:53:45
-INSERT INTO `show` VALUES (2,'Wonder Woman','Action',2,1,0,4,2017,'When a pilot crashes and tells of conflict in the outside world, Diana, an Amazonian warrior in training, leaves home to fight a war, discovering her full powers and true destiny.');
+INSERT INTO `show` VALUES (2,'Wonder Woman','Action',2,0,4,2017,'When a pilot crashes and tells of conflict in the outside world, Diana, an Amazonian warrior in training, leaves home to fight a war, discovering her full powers and true destiny.',4);
 INSERT INTO `production_company` VALUES (12,'DMG Entertainment');
-INSERT INTO `show` VALUES (3,'Twilight','Romance',2,1,0,12,2008,'Bella Swan moves to Forks and encounters Edward Cullen, a gorgeous boy with a secret.');
-INSERT INTO `show` VALUES (4,'The Girl in the Spiders Web','Thriller',2,1,0,8,2018,'Young computer hacker Lisbeth Salander and journalist Mikael Blomkvist find themselves caught in a web of spies, cybercriminals and corrupt government officials.');
-INSERT INTO `show` VALUES (5,'The Favorite','Drama',2,1,0,3,2018,'In early 18th century England, a frail Queen Anne occupies the throne and her close friend, Lady Sarah, governs the country in her stead. When a new servant, Abigail, arrives, her charm endears her to Sarah.');
-INSERT INTO `show` VALUES (6,'Avengers Assemble','Cartoon',2,0,1,9,2013,'The further adventures of the Marvel Universe`s mightiest general membership superhero team.');
-INSERT INTO `show` VALUES (7,'Black Panther','Action',2,1,0,9,2018,'T`Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country`s past.');
-INSERT INTO `show` VALUES (8,'The Devil Wears Prada','Comedy',1.5,1,0,3,2006,'A smart but sensible new graduate lands a job as an assistant to Miranda Priestly, the demanding editor-in-chief of a high fashion magazine.');
-INSERT INTO `show` VALUES (9,'Elizabeth','Drama',2,1,0,2,1998,'The early years of the reign of Elizabeth I of England and her difficult task of learning what is necessary to be a monarch.');
-INSERT INTO `show` VALUES (10,'Mad Max: Fury Road','Action',2,1,0,4,2015,'In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.');
-INSERT INTO `show` VALUES (11,'Raging Bull','Action',1.5,1,0,11,1980,'The life of boxer Jake LaMotta, whose violence and temper that led him to the top in the ring destroyed his life outside of it.');
+INSERT INTO `show` VALUES (3,'Twilight','Romance',2,0,12,2008,'Bella Swan moves to Forks and encounters Edward Cullen, a gorgeous boy with a secret.',4);
+INSERT INTO `show` VALUES (4,'The Girl in the Spiders Web','Thriller',2,0,8,2018,'Young computer hacker Lisbeth Salander and journalist Mikael Blomkvist find themselves caught in a web of spies, cybercriminals and corrupt government officials.',4);
+INSERT INTO `show` VALUES (5,'The Favorite','Drama',2,0,3,2018,'In early 18th century England, a frail Queen Anne occupies the throne and her close friend, Lady Sarah, governs the country in her stead. When a new servant, Abigail, arrives, her charm endears her to Sarah.',4);
+INSERT INTO `show` VALUES (6,'Avengers Assemble','Cartoon',2,1,9,2013,'The further adventures of the Marvel Universe`s mightiest general membership superhero team.',4);
+INSERT INTO `show` VALUES (7,'Black Panther','Action',2,0,9,2018,'T`Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country`s past.',4);
+INSERT INTO `show` VALUES (8,'The Devil Wears Prada','Comedy',1.5,0,3,2006,'A smart but sensible new graduate lands a job as an assistant to Miranda Priestly, the demanding editor-in-chief of a high fashion magazine.',4);
+INSERT INTO `show` VALUES (9,'Elizabeth','Drama',2,0,2,1998,'The early years of the reign of Elizabeth I of England and her difficult task of learning what is necessary to be a monarch.',4);
+INSERT INTO `show` VALUES (10,'Mad Max: Fury Road','Action',2,0,4,2015,'In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.',4);
+INSERT INTO `show` VALUES (11,'Raging Bull','Action',1.5,0,11,1980,'The life of boxer Jake LaMotta, whose violence and temper that led him to the top in the ring destroyed his life outside of it.',4);
 
 INSERT INTO show_image_show VALUES (1,'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg',1);
 INSERT INTO show_image_show VALUES (2,'https://m.media-amazon.com/images/M/MV5BNDFmZjgyMTEtYTk5MC00NmY0LWJhZjktOWY2MzI5YjkzODNlXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_SY1000_SX675_AL_.jpg',2);

@@ -23,4 +23,5 @@ public class Web {
     public static final String ACTOR = "/actor";
     public static final String ADD_SHOW = "/show/new";
     public static final String EDIT_SHOW = "/show/edit";
+    public static final String SHOW_BY_STATUS = "/show/status";
 }

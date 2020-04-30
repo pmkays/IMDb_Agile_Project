@@ -1,0 +1,33 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+	<link rel="stylesheet" href="/showByStatus.css">
+	<script src="/status.js"></script>
+</head>
+<body class = "body" onload="updateShows()">
+	<h1>Shows by Status</h1>
+	<select id="status" onchange="updateShows()">
+		<option value="A">All</option>
+		<option value="0">Submitted</option>
+		<option value="1">Under Investigation</option>
+		<option value="2">Pending</option>
+		<option value="3">Suspended</option>
+		<option value="4">Visible</option>
+		<option value="5">Rejected</option>
+	</select>
+	<div id = "container">
+		#foreach( $show in ${shows} )
+			<div class="row padding ${show.getStatus()}">
+				<div class="col col-lg-3">
+					<img src="${show.getImages().get(0).getUrl()}" alt="${show.getShowTitle()} Poster Image"></img>
+				</div>
+				<div class = "col col-lg-9 resultbox">
+					<a href = "/show/?show=${show.getShowID()}"><strong>${show.getShowTitle()}</a></strong> <br>
+					${show.getYear()} | ${show.getGenre()}
+					<p>${show.getSynopsis()}</p>
+				</div>
+			</div>
+		#end
+	</div>
+</body>
+#end

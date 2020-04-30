@@ -126,6 +126,13 @@ public class ShowController
     	}
     	ctx.render(Template.FORM_OUTCOME, model);
     };
+
+	public static Handler serveShowsByStatusPage = ctx -> {
+		Map<String, Object> model = ViewUtil.baseModel(ctx);
+		List<Show> shows = ShowDAO.getAllShows();
+		model.put("shows", shows);
+		ctx.render(Template.ADMIN_SHOW_BY_STATUS, model);
+	};
     
     
 }

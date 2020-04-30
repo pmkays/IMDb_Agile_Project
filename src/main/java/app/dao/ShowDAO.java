@@ -254,5 +254,46 @@ public class ShowDAO {
 		return success;
 	}
 
+	public static List<Show> getAllShows()
+	{
+		List<Show> shows = new ArrayList<>();
+
+		try {
+			String sql = "SELECT s.show_id, show_title, genre, length, type, pc.proco_id, proco_name, year, synopsis, status, sis.image_id, url\n" +
+						 "FROM imdb.show s\n" +
+						 "JOIN production_company pc ON s.proco_id = pc.proco_id\n" +
+						 "JOIN show_image_show sis ON s.show_id = sis.show_id;";
+
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+
+			while (result.next()) {
+				ProductionCompany productionCompany = new ProductionCompany(result.getInt("proco_id"),
+						result.getString("proco_name"));
+
+				Show newShow = new Show(result.getInt("show_id"), result.getString("show_title"),
+						result.getDouble("length"), result.getInt("type"),
+						productionCompany, result.getString("genre"), result.getInt("year"),
+						result.getString("synopsis"), result.getInt("status"));
+
+				ShowImage image = new ShowImage(result.getInt("image_id"), result.getString("url"));
+				List<ShowImage> images = new ArrayList<ShowImage>();
+				images.add(image);
+				newShow.setImages(images);
+
+				shows.add(newShow);
+			}
+
+			DatabaseUtils.closeConnection(connection);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (!shows.isEmpty())
+			return shows;
+		return null;
+	}
 
 }
