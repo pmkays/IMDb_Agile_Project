@@ -55,20 +55,32 @@
 	</form>
 </body>	
 	
-	<script>
-		document.getElementById("addCastBtn").onclick = displayCastForm;
-		var count = 0;
-		
-		function displayCastForm(){
+<script>
+	document.getElementById("addCastBtn").onclick = displayCastForm;
+	var count = 0;
+	var actorRoleArray = []; 
+	
+	#foreach($person in ${people})
+		actorRoleArray[${person.getPersonId()}]	= "${person.getRole().replace(" ","")}";		
+	#end
+	
+	function displayCastForm(){
 		count++;
-		var div = document.getElementById("cast");
+
+		var outerDiv = document.getElementById("cast");
+		var div = document.createElement("div");
+		div.id= "cast" + count;
+		outerDiv.appendChild(div);
+		
 		var select = document.createElement("select");
 		select.id = "actor"+count;
-		select.class = "form-control";
+		select.name = "actor"+count;
+		select.className = "form-control";
 		var option = document.createElement("option");
 		option.text = "Please select an actor";
 		option.value = "0";
 		select.appendChild(option);	
+		
 		#foreach($person in ${people})
 				#set($id = ${person.getFullName().replace(" ","")})
 				#set($actor = "actor")
@@ -76,17 +88,51 @@
 				option.text = "${person.getFullName()}";
 				option.value = "${person.getPersonId()}";
 				option.id = "$id$actor";
-				select.appendChild(option);				
+				select.appendChild(option);	
 		#end
+		
 		div.appendChild(select);
-		document.getElementById("actor"+count).onchange = getRolesForActor;
+		if(document.getElementById("role"+count) == null){
+			var roleSelect = document.createElement("select");
+			roleSelect.id="role"+count;
+			roleSelect.name = "role"+count;
+			roleSelect.style.display = "none";
+			div.appendChild(roleSelect);
 		}
-		
-		function getRolesForActor(){
-		    alert("made it to getroelsforactor");
-		
+
+		document.getElementById("actor"+count).onchange = function(){
+			getRolesForActor(this.id);
+		};
+	}
+	
+	function getRolesForActor(id){
+		var arrayValue =  document.getElementById(id).parentElement.children[0].value;
+		var roleOfActor = actorRoleArray[arrayValue];
+		var allPossibleRoles = [];
+		if(roleOfActor.includes(",")){
+			allPossibleRoles = roleOfActor.split(",");
+		}else{
+		allPossibleRoles.push(roleOfActor);
 		}
-	</script>
+
+		var select = document.getElementById(id).parentElement.children[1];
+		select.style.display= "inline";
+		select.innerHTML = "";
+		select.className = "form-control";
+		var option = document.createElement("option");
+		option.text = "Please select a role";
+		option.value = "0";
+		select.appendChild(option);	
+		
+		for(var i = 0;  i < allPossibleRoles.length; i++){
+			var option = document.createElement("option");
+			option.text = allPossibleRoles[i];
+			option.value = allPossibleRoles[i];
+			select.appendChild(option);	
+		}
+	
+	}
+</script>
 
 
 #end
