@@ -193,7 +193,7 @@ public class ShowDAO {
 	}
 	
 	public static int addNewShow(Show showToAdd) {
-		int id = 0;
+		int id = -1;
 
 		try {
 			String sql = String.format("INSERT INTO `show` (show_title, genre, "

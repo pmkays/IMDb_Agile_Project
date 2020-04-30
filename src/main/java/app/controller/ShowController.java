@@ -1,6 +1,7 @@
 package app.controller;
 import app.controller.paths.Template;
 import app.controller.utils.ViewUtil;
+import app.dao.CreditsRollDAO;
 import app.dao.PersonDAO;
 import app.dao.ProCoDAO;
 import app.dao.ShowDAO;
@@ -13,6 +14,7 @@ import app.model.Enumerations.ShowStatus;
 import app.model.Enumerations.ShowType;
 import io.javalin.http.Handler;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -87,21 +89,31 @@ public class ShowController
     	Show showToAdd = new Show(title, length, type, proco, genre, year, synopsis, status);
     	int showID = ShowDAO.addNewShow(showToAdd);
     	
-    	int i = 1;
-    	while(ctx.formParam("actor" + i) != null) {
-    		int actorID = Integer.parseInt(ctx.formParam("actor" + i));
-    		String role = ctx.formParam("role" + i);
-    		String character = ctx.formParam("character" + i);
-    		CreditsRoll cr = new CreditsRoll(actorID, role, character, year, 0, showID);
-    		i++;
+    	boolean successAddingCast = false;
+    	
+    	//only add credit rolls if show was successfully added
+    	if(showID != -1){
+    		List<CreditsRoll> creditRolls = new ArrayList<CreditsRoll>();
+        	int i = 1;
+        	while(ctx.formParam("actor" + i) != null) {
+        		int actorID = Integer.parseInt(ctx.formParam("actor" + i));
+        		String role = ctx.formParam("role" + i);
+        		String character = ctx.formParam("character" + i);
+        		creditRolls.add(new CreditsRoll(actorID, role, character, year, 0, showID));
+        		i++;		
+        	}
+        	
+        	successAddingCast = CreditsRollDAO.addNewCreditRolls(creditRolls);
     		
+    	}else {
+    		model.put("status", "Your new show entry has failed. Please try again.");
     	}
-//    	if()){
-//    		model.put("status", "Your new show entry has been submitted and will "
-//    				+ "be reviewed by a member of our team. Thank you.");
-//    	}else {
-//    		model.put("status", "Your new show entry has failed. Please try again.");
-//    	}
+    	
+    	if(successAddingCast) {
+    		model.put("status", "Your new show entry has been submitted and will "
+    				+ "be reviewed by a member of our team. Thank you.");
+    	}
+    	
     	ctx.render(Template.FORM_OUTCOME, model);
     };
     
