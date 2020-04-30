@@ -16,7 +16,13 @@
 				<span>${hour}h ${minutes}m |</span>
 				<span>${show.getGenre()} |</span>
 				<span>${show.getYear()}</span>
-			</p>	
+			</p>
+			<p><i class="fas fa-star"></i> ${averageRating} |
+			<a class="review-link" href ="/user_review?show=${show.getShowID()}"> Reviews </a>
+			#if(${userID})
+				| <a class="review-link" href ="/user_review_form?show=${show.getShowID()}"> Add review</a>
+			#end	
+			</p>
 		</div>
 	</div>
 </div>

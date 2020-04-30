@@ -1,0 +1,14 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<head>
+	
+</head>
+<body class = "body">
+<div class = "jumbotron">
+	<h1>Success</h1>
+	<hr>
+	<a href="/show?show=${showID}">Return to show page</a>
+</div>
+</body>
+
+#end
