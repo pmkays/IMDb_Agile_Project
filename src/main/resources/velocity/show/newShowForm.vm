@@ -70,14 +70,15 @@
 		var outerDiv = document.getElementById("cast");
 		var div = document.createElement("div");
 		div.id= "cast" + count;
+		div.className = "row container-fluid";
 		outerDiv.appendChild(div);
 		
 		var select = document.createElement("select");
 		select.id = "actor"+count;
 		select.name = "actor"+count;
-		select.className = "form-control";
+		select.className = "form-control col-lg-4";
 		var option = document.createElement("option");
-		option.text = "Please select an actor";
+		option.text = "Please select a person";
 		option.value = "0";
 		select.appendChild(option);	
 		
@@ -99,6 +100,18 @@
 			roleSelect.style.display = "none";
 			div.appendChild(roleSelect);
 		}
+		
+		if(document.getElementById("character"+count) == null){
+			var character = document.createElement("input");
+			character.id="character"+count;
+			character.name = "character"+count;
+			character.type = "text";
+			character.required = true;
+			character.style.display = "none";
+			character.placeholder = "Enter character (if actor/actress)";
+			character.className = "form-control col-lg-4";
+			div.appendChild(character);
+		}
 
 		document.getElementById("actor"+count).onchange = function(){
 			getRolesForActor(this.id);
@@ -118,7 +131,7 @@
 		var select = document.getElementById(id).parentElement.children[1];
 		select.style.display= "inline";
 		select.innerHTML = "";
-		select.className = "form-control";
+		select.className = "form-control col-lg-4";
 		var option = document.createElement("option");
 		option.text = "Please select a role";
 		option.value = "0";
@@ -130,6 +143,9 @@
 			option.value = allPossibleRoles[i];
 			select.appendChild(option);	
 		}
+		
+		var input = document.getElementById(id).parentElement.children[2];
+		input.style.display= "inline";
 	
 	}
 </script>

@@ -192,8 +192,8 @@ public class ShowDAO {
 		return null;
 	}
 	
-	public static boolean AddNewShow(Show showToAdd) {
-		boolean success = true;
+	public static int addNewShow(Show showToAdd) {
+		int id = 0;
 
 		try {
 			String sql = String.format("INSERT INTO `show` (show_title, genre, "
@@ -205,21 +205,22 @@ public class ShowDAO {
 			
 			Connection connection = DatabaseUtils.connectToDatabase();
 			Statement statement = connection.createStatement();
-			int rowCount = statement.executeUpdate(sql);
+			statement.executeUpdate(sql,  Statement.RETURN_GENERATED_KEYS);
 			
-			if(rowCount == 0){
-				success = false;
-			}
+			ResultSet generatedKeys = statement.getGeneratedKeys();
+			if (generatedKeys.next()) {
+                id = generatedKeys.getInt(1);
+            }
 			
 			statement.close();
 			DatabaseUtils.closeConnection(connection);
 			
 		} catch (Exception e) {
-			success = false;
 			e.printStackTrace();
 		}
 		
-		return success;
+		return id;
+		
 	}
 	
 	public static boolean EditShow(Show showToEdit) {

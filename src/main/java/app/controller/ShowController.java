@@ -85,13 +85,23 @@ public class ShowController
     	int status = Integer.parseInt(ctx.formParam("status"));	
     	
     	Show showToAdd = new Show(title, length, type, proco, genre, year, synopsis, status);
+    	int showID = ShowDAO.addNewShow(showToAdd);
     	
-    	if(ShowDAO.AddNewShow(showToAdd)){
-    		model.put("status", "Your new show entry has been submitted and will "
-    				+ "be reviewed by a member of our team. Thank you.");
-    	}else {
-    		model.put("status", "Your new show entry has failed. Please try again.");
+    	int i = 1;
+    	while(ctx.formParam("actor" + i) != null) {
+    		int actorID = Integer.parseInt(ctx.formParam("actor" + i));
+    		String role = ctx.formParam("role" + i);
+    		String character = ctx.formParam("character" + i);
+    		CreditsRoll cr = new CreditsRoll(actorID, role, character, year, 0, showID);
+    		i++;
+    		
     	}
+//    	if()){
+//    		model.put("status", "Your new show entry has been submitted and will "
+//    				+ "be reviewed by a member of our team. Thank you.");
+//    	}else {
+//    		model.put("status", "Your new show entry has failed. Please try again.");
+//    	}
     	ctx.render(Template.FORM_OUTCOME, model);
     };
     

@@ -28,6 +28,25 @@ public class CreditsRoll {
         this.endYear = endYear;
         this.show = show;
     }
+    
+    public CreditsRoll(int personID, String role, int startYear, String character, int endYear, Show show) {
+    	this.personID = personID;
+        this.role = role;
+        this.startYear = startYear;
+        this.character = character;
+        this.endYear = endYear;
+        this.show = show;
+    }
+    
+    public CreditsRoll(int personID, String role, String character, int startYear, int endYear, int showID) {
+    	this.personID = personID;
+        this.role = role;
+        this.startYear = startYear;
+        this.character = character;
+        this.endYear = endYear;
+        this.showID = showID;
+    }
+
 
     public Person getPerson() {
         return person;
