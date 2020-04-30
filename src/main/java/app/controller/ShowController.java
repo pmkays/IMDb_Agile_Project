@@ -28,7 +28,7 @@ public class ShowController
         Map<String, Object> model = ViewUtil.baseModel(ctx);
 
         Show show = ShowDAO.getShowByID(ctx.queryParam("show"));
-        List<CreditsRoll> creditsRoll = ShowDAO.getCreditsRollByShowID(ctx.queryParam("show"));
+        List<CreditsRoll> creditsRoll = CreditsRollDAO.getCreditsRollByShowID(ctx.queryParam("show"));
         String duration = Double.toString(show.getLength());
         String userID = ctx.sessionAttribute("currentUser");
         double averageRating = UserReviewDAO.getShowAverageRating(ctx.queryParam("show"));
@@ -98,7 +98,7 @@ public class ShowController
         	while(ctx.formParam("actor" + i) != null) {
         		int actorID = Integer.parseInt(ctx.formParam("actor" + i));
         		String role = ctx.formParam("role" + i);
-        		String character = ctx.formParam("character" + i);
+        		String character = (ctx.formParam("character" + i) == "") ? ctx.formParam("character" + i) : "N/A";
         		creditRolls.add(new CreditsRoll(actorID, role, character, year, 0, showID));
         		i++;		
         	}

@@ -163,34 +163,6 @@ public class ShowDAO {
 		return null;
 	}
 
-	public static List<CreditsRoll> getCreditsRollByShowID(String showID) {
-		List<CreditsRoll> creditsRoll = new ArrayList<>();
-
-		try {
-			String sql = "SELECT * FROM credits_roll JOIN person ON credits_roll.person_id = person.person_id "
-					+ "WHERE show_id =" + showID;
-
-			Connection connection = DatabaseUtils.connectToDatabase();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(sql);
-
-			while (result.next()) {
-				Person person = new Person(result.getInt("person_id"), result.getString("fullname"),
-						result.getString("role"), result.getDate("birthdate"), result.getString("bio"));
-
-				creditsRoll.add(new CreditsRoll(person, result.getString("role"), result.getInt("start_year"),
-						result.getString("character_name"), result.getInt("end_year"), result.getInt("show_id")));
-			}
-
-			DatabaseUtils.closeConnection(connection);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (!creditsRoll.isEmpty())
-			return creditsRoll;
-		return null;
-	}
 	
 	public static int addNewShow(Show showToAdd) {
 		int id = -1;

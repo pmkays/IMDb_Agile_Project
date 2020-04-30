@@ -13,7 +13,7 @@
 		</div>
 		<div class="form-group">
 			<label for = "length">Length: </label>
-			<input pattern="^\d*(\.\d{0,2})?$" name="length" id="genre" class="form-control" required>
+			<input pattern="^\d+\.\d{2}?$" name="length" id="genre" class="form-control" required>
 		</div>
 		<div class="form-group">
 			<label for = "type">Type: </label>
@@ -39,15 +39,22 @@
 			<textarea id="synopsis" name = "synopsis" class="form-control" required></textarea>
 		</div>
 		<div class="form-group">
-			<button type = "button" class = "btn btn-primary center-block" id = "addCastBtn">Add cast</button>
-			<div id="cast"></div>
+			<label for = "cast"> Cast: </label>
+			<div class="container mb-2">
+			  <div class="row">
+			    <div class="col text-right">
+			      	<button type = "button" class = "btn btn-dark center-block" id = "addCastBtn">Add cast</button>
+			    </div>
+			  </div>
+			</div>
+			<div id="cast" name = "cast"></div>
 		</div>
 		<div class="form-group">
 			<input type="hidden" id="status" name="status" value="0">
 			<div class="container">
 			  <div class="row">
 			    <div class="col text-center">
-			      <input type="submit" class="btn btn-primary center-block">
+			      <input type="submit" class="btn btn-warning center-block">
 			    </div>
 			  </div>
 			</div>
@@ -65,14 +72,18 @@
 	#end
 	
 	function displayCastForm(){
+		
+		//use a counter to differentiate between div boxes when getting form params
 		count++;
-
+	
+		//make a subdiv for each new cast
 		var outerDiv = document.getElementById("cast");
 		var div = document.createElement("div");
 		div.id= "cast" + count;
 		div.className = "row container-fluid";
 		outerDiv.appendChild(div);
 		
+		//create the select to display all actors
 		var select = document.createElement("select");
 		select.id = "actor"+count;
 		select.name = "actor"+count;
@@ -83,15 +94,13 @@
 		select.appendChild(option);	
 		
 		#foreach($person in ${people})
-				#set($id = ${person.getFullName().replace(" ","")})
-				#set($actor = "actor")
-				var option = document.createElement("option");
-				option.text = "${person.getFullName()}";
-				option.value = "${person.getPersonId()}";
-				option.id = "$id$actor";
-				select.appendChild(option);	
+			var option = document.createElement("option");
+			option.text = "${person.getFullName()}";
+			option.value = "${person.getPersonId()}";
+			select.appendChild(option);	
 		#end
 		
+		//add select for role 
 		div.appendChild(select);
 		if(document.getElementById("role"+count) == null){
 			var roleSelect = document.createElement("select");
@@ -101,33 +110,39 @@
 			div.appendChild(roleSelect);
 		}
 		
+		//add input for character
 		if(document.getElementById("character"+count) == null){
 			var character = document.createElement("input");
 			character.id="character"+count;
 			character.name = "character"+count;
 			character.type = "text";
-			character.required = true;
 			character.style.display = "none";
-			character.placeholder = "Enter character (if actor/actress)";
+			character.placeholder = "Enter character if applicable";
 			character.className = "form-control col-lg-4";
 			div.appendChild(character);
 		}
-
+	
+		//pass in the id of the event (actor select) that fired the event
 		document.getElementById("actor"+count).onchange = function(){
 			getRolesForActor(this.id);
 		};
 	}
 	
 	function getRolesForActor(id){
+		
+		//get the value of the actor id and find it in array
 		var arrayValue =  document.getElementById(id).parentElement.children[0].value;
 		var roleOfActor = actorRoleArray[arrayValue];
+		
+		//break apart the roles if there is multiple
 		var allPossibleRoles = [];
 		if(roleOfActor.includes(",")){
 			allPossibleRoles = roleOfActor.split(",");
 		}else{
 		allPossibleRoles.push(roleOfActor);
 		}
-
+	
+		//update the relevant role options for the chosen actor select
 		var select = document.getElementById(id).parentElement.children[1];
 		select.style.display= "inline";
 		select.innerHTML = "";
@@ -144,6 +159,7 @@
 			select.appendChild(option);	
 		}
 		
+		//make the input visible
 		var input = document.getElementById(id).parentElement.children[2];
 		input.style.display= "inline";
 	
