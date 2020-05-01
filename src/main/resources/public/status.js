@@ -7,7 +7,6 @@ function getSelectedText(){
 function getSelectedValue(){
     var status = document.getElementById("status");
     var result = status.options[status.selectedIndex].value;
-    console.log(result);
     return result;
 }
 

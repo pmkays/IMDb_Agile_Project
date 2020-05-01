@@ -22,7 +22,7 @@
 					<img src="${show.getImages().get(0).getUrl()}" alt="${show.getShowTitle()} Poster Image"></img>
 				</div>
 				<div class = "col col-lg-9 resultbox">
-					<a href = "/show/?show=${show.getShowID()}"><strong>${show.getShowTitle()}</a></strong> <br>
+					<a href = "/show/edit/?show=${show.getShowID()}"><strong>${show.getShowTitle()}</a></strong> <br>
 					${show.getYear()} | ${show.getGenre()}
 					<p>${show.getSynopsis()}</p>
 				</div>

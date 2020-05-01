@@ -79,4 +79,9 @@ public class CreditsRoll {
     public Show getShow() {
     	return show;
     }
+
+	public void setPerson(Person person) {
+		this.person = person;
+		
+	}
 }
