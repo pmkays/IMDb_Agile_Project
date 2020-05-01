@@ -21,7 +21,7 @@ public class ShowDAO {
 
 		try {
 			String sql = "SELECT * FROM `show`, production_company, show_image_show "
-					+ "WHERE `show`.proco_id = production_company.proco_id "
+					+ "WHERE `show`.proco_id = production_company.proco_id " 
 					+ "AND `show`.show_id = show_image_show.show_id " + "AND `show`.show_id =" + showid;
 
 			Connection connection = DatabaseUtils.connectToDatabase();
@@ -163,37 +163,9 @@ public class ShowDAO {
 		return null;
 	}
 
-	public static List<CreditsRoll> getCreditsRollByShowID(String showID) {
-		List<CreditsRoll> creditsRoll = new ArrayList<>();
-
-		try {
-			String sql = "SELECT * FROM credits_roll JOIN person ON credits_roll.person_id = person.person_id "
-					+ "WHERE show_id =" + showID;
-
-			Connection connection = DatabaseUtils.connectToDatabase();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(sql);
-
-			while (result.next()) {
-				Person person = new Person(result.getInt("person_id"), result.getString("fullname"),
-						result.getString("role"), result.getDate("birthdate"), result.getString("bio"));
-
-				creditsRoll.add(new CreditsRoll(person, result.getString("role"), result.getInt("start_year"),
-						result.getString("character_name"), result.getInt("end_year"), result.getInt("show_id")));
-			}
-
-			DatabaseUtils.closeConnection(connection);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (!creditsRoll.isEmpty())
-			return creditsRoll;
-		return null;
-	}
 	
-	public static boolean AddNewShow(Show showToAdd) {
-		boolean success = true;
+	public static int addNewShow(Show showToAdd) {
+		int id = -1;
 
 		try {
 			String sql = String.format("INSERT INTO `show` (show_title, genre, "
@@ -205,21 +177,22 @@ public class ShowDAO {
 			
 			Connection connection = DatabaseUtils.connectToDatabase();
 			Statement statement = connection.createStatement();
-			int rowCount = statement.executeUpdate(sql);
+			statement.executeUpdate(sql,  Statement.RETURN_GENERATED_KEYS);
 			
-			if(rowCount == 0){
-				success = false;
-			}
+			ResultSet generatedKeys = statement.getGeneratedKeys();
+			if (generatedKeys.next()) {
+                id = generatedKeys.getInt(1);
+            }
 			
 			statement.close();
 			DatabaseUtils.closeConnection(connection);
 			
 		} catch (Exception e) {
-			success = false;
 			e.printStackTrace();
 		}
 		
-		return success;
+		return id;
+		
 	}
 	
 	public static boolean EditShow(Show showToEdit) {

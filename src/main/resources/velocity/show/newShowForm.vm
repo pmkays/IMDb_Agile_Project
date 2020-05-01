@@ -13,7 +13,7 @@
 		</div>
 		<div class="form-group">
 			<label for = "length">Length: </label>
-			<input pattern="^\d*(\.\d{0,2})?$" name="length" id="genre" class="form-control" required>
+			<input pattern="^\d+\.\d{2}?$" name="length" id="genre" class="form-control" required>
 		</div>
 		<div class="form-group">
 			<label for = "type">Type: </label>
@@ -24,7 +24,11 @@
 		</div>
 		<div class="form-group">		
 			<label for = "production_company"> Production Company: </label>
-			<input type="text" id="production_company" name = "production_company" class="form-control" required>
+			<select name= "production_company" id = "production_company" class= "form-control">
+				#foreach($proco in ${procos})
+			    	<option value = "${proco.getProductID()}">${proco.getName()}</option>
+			 	#end
+			</select>
 		</div>
 		<div class="form-group">
 			<label for = "year"> Year: </label>
@@ -34,17 +38,137 @@
 			<label for = "synopsis"> Synopsis: </label>
 			<textarea id="synopsis" name = "synopsis" class="form-control" required></textarea>
 		</div>
+		<div class = "form-group">
+			<label for = "image"> Image URL: </label>
+			<input type="url" id="image" name = "image" class="form-control" required></input>
+		</div>
+		<div class="form-group">
+			<label for = "cast"> Cast: </label>
+			<div class="container mb-2">
+			  <div class="row">
+			    <div class="col text-right">
+			      	<button type = "button" class = "btn btn-dark center-block" id = "addCastBtn">Add cast</button>
+			    </div>
+			  </div>
+			</div>
+			<div id="cast" name = "cast"></div>
+		</div>
 		<div class="form-group">
 			<input type="hidden" id="status" name="status" value="0">
 			<div class="container">
 			  <div class="row">
 			    <div class="col text-center">
-			      <input type="submit" class="btn btn-primary center-block">
+			      <input type="submit" class="btn btn-warning center-block">
 			    </div>
 			  </div>
 			</div>
 		</div>
 	</form>
-</body>
+</body>	
+
+<script>
+	document.getElementById("addCastBtn").onclick = displayCastForm;
+	var count = 0;
+	var actorRoleArray = []; 
+	
+	#foreach($person in ${people})
+		actorRoleArray[${person.getPersonId()}]	= "${person.getRole().replace(" ","")}";		
+	#end
+	
+	function displayCastForm(){
+		
+		//use a counter to differentiate between div boxes when getting form params
+		count++;
+	
+		//make a subdiv for each new cast
+		var outerDiv = document.getElementById("cast");
+		var div = document.createElement("div");
+		div.id= "cast" + count;
+		div.className = "row container-fluid";
+		outerDiv.appendChild(div);
+		
+		//create the select to display all actors
+		var select = document.createElement("select");
+		select.id = "actor"+count;
+		select.name = "actor"+count;
+		select.className = "form-control col-lg-4";
+		var option = document.createElement("option");
+		option.text = "Please select a person";
+		option.value = "0";
+		select.appendChild(option);	
+		
+		#foreach($person in ${people})
+			var option = document.createElement("option");
+			option.text = "${person.getFullName()}";
+			option.value = "${person.getPersonId()}";
+			select.appendChild(option);	
+		#end
+		
+		//add select for role 
+		div.appendChild(select);
+		if(document.getElementById("role"+count) == null){
+			var roleSelect = document.createElement("select");
+			roleSelect.id="role"+count;
+			roleSelect.name = "role"+count;
+			roleSelect.style.display = "none";
+			div.appendChild(roleSelect);
+		}
+		
+		//add input for character
+		if(document.getElementById("character"+count) == null){
+			var character = document.createElement("input");
+			character.id="character"+count;
+			character.name = "character"+count;
+			character.type = "text";
+			character.style.display = "none";
+			character.placeholder = "Enter character if applicable";
+			character.className = "form-control col-lg-4";
+			div.appendChild(character);
+		}
+	
+		//pass in the id of the event (actor select) that fired the event
+		document.getElementById("actor"+count).onchange = function(){
+			getRolesForActor(this.id);
+		};
+	}
+	
+	function getRolesForActor(id){
+		
+		//get the value of the actor id and find it in array
+		var arrayValue =  document.getElementById(id).parentElement.children[0].value;
+		var roleOfActor = actorRoleArray[arrayValue];
+		
+		//break apart the roles if there is multiple
+		var allPossibleRoles = [];
+		if(roleOfActor.includes(",")){
+			allPossibleRoles = roleOfActor.split(",");
+		}else{
+		allPossibleRoles.push(roleOfActor);
+		}
+	
+		//update the relevant role options for the chosen actor select
+		var select = document.getElementById(id).parentElement.children[1];
+		select.style.display= "inline";
+		select.innerHTML = "";
+		select.className = "form-control col-lg-4";
+		var option = document.createElement("option");
+		option.text = "Please select a role";
+		option.value = "0";
+		select.appendChild(option);	
+		
+		for(var i = 0;  i < allPossibleRoles.length; i++){
+			var option = document.createElement("option");
+			option.text = allPossibleRoles[i];
+			option.value = allPossibleRoles[i];
+			select.appendChild(option);	
+		}
+		
+		//make the input visible
+		var input = document.getElementById(id).parentElement.children[2];
+		input.style.display= "inline";
+	
+	}
+</script>
+
 
 #end
