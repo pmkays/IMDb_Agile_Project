@@ -2,6 +2,7 @@ package app.controller;
 import app.controller.paths.Template;
 import app.controller.utils.ViewUtil;
 import app.dao.CreditsRollDAO;
+import app.dao.ImageDAO;
 import app.dao.PersonDAO;
 import app.dao.ProCoDAO;
 import app.dao.ShowDAO;
@@ -10,6 +11,7 @@ import app.model.CreditsRoll;
 import app.model.Person;
 import app.model.ProductionCompany;
 import app.model.Show;
+import app.model.ShowImage;
 import app.model.Enumerations.ShowStatus;
 import app.model.Enumerations.ShowType;
 import io.javalin.http.Handler;
@@ -90,6 +92,7 @@ public class ShowController
     	int showID = ShowDAO.addNewShow(showToAdd);
     	
     	boolean successAddingCast = false;
+    	boolean successAddingImage = false;
     	
     	//only add credit rolls if show was successfully added
     	if(showID != -1){
@@ -104,12 +107,13 @@ public class ShowController
         	}
         	
         	successAddingCast = CreditsRollDAO.addNewCreditRolls(creditRolls);
+        	successAddingImage = ImageDAO.addNewShowImage(new ShowImage(ctx.formParam("image"), showID));
     		
     	}else {
     		model.put("status", "Your new show entry has failed. Please try again.");
     	}
     	
-    	if(successAddingCast) {
+    	if(successAddingCast && successAddingImage) {
     		model.put("status", "Your new show entry has been submitted and will "
     				+ "be reviewed by a member of our team. Thank you.");
     	}
