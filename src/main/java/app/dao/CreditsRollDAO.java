@@ -9,6 +9,7 @@ import java.util.List;
 import app.dao.utils.DatabaseUtils;
 import app.model.CreditsRoll;
 import app.model.Person;
+import app.model.Show;
 
 public class CreditsRollDAO {
 	
@@ -67,6 +68,33 @@ public class CreditsRollDAO {
 		
 		return success;
 		
+	}
+
+	public static boolean editCreditRolls(List<CreditsRoll> creditRollsToEdit) {
+		boolean success = true;
+
+		try {			
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			
+			for (CreditsRoll creditRoll : creditRollsToEdit) {
+				String sql = String.format("UPDATE `credits_roll` SET `role` = '%s', "
+						+ "`start_year` = %d, character_name = '%s' "
+						+ "WHERE show_id = %d AND person_id = %d", 
+						creditRoll.getRole(), creditRoll.getStartYear(), creditRoll.getCharacter(), creditRoll.getShowID(), creditRoll.getPersonID());
+
+				statement.executeUpdate(sql);
+			}
+			
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+			
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+		
+		return success;
 	}
 
 }

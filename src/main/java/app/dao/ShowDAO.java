@@ -196,7 +196,7 @@ public class ShowDAO {
 		
 	}
 	
-	public static boolean EditShow(Show showToEdit) {
+	public static boolean editShow(Show showToEdit) {
 		boolean success = true;
 
 		try {

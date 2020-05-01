@@ -35,4 +35,29 @@ public class ImageDAO {
 		
 	}
 
+	public static boolean editShowImage(ShowImage imageToEdit) {
+		boolean success = true;
+
+		try {
+			String sql = String.format("UPDATE `show_image_show` SET url = '%s'"
+					+ "WHERE show_id = %d", imageToEdit.getUrl(), imageToEdit.getShowID());
+			
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+			if(rowCount == 0){
+				success = false;
+			}
+			
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+			
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
+
 }

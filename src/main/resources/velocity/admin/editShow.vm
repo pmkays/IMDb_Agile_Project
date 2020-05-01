@@ -25,7 +25,6 @@
 		<div class="form-group">		
 			<label for = "production_company"> Production Company: </label>
 			<select name= "production_company" id = "production_company" class= "form-control">
-
 				#foreach($proco in ${procos})
 			    	<option #if(${show.getProco().getProductID()} == ${proco.getProductID()})selected#else#end value = "${proco.getProductID()}">${proco.getName()}</option>
 			 	#end
@@ -45,17 +44,23 @@
 		</div>
 		<div class="form-group">
 			<span>Cast:</span>
-			#set($count = 0)
+			#set($count = 1)
 			#foreach($credit in ${credits})
 				<div class = "row container-fluid">
-			    	<input type="text" name = "actor$count" id="actor$count" value = "${credit.getPerson().getFullName()}" class = "form-control col-lg-4" readonly>
+					<input type = "hidden" name = "actor$count" id="actor$count" value = "${credit.getPerson().getPersonId()}">
+			    	<input type="text"  value = "${credit.getPerson().getFullName()}" class = "form-control col-lg-4" readonly>
 			    	<select name = "role$count" id ="role$count" class="form-control col-lg-4">
-					#foreach ($role in ${credit.getPerson().getRole().replace(" ","").split(",")})
-						<option value = "$role" #if(${credit.getRole()} == $role)selected#else#end>$role</option>
+					#if(${credit.getPerson().getRole().contains(",")})
+						#foreach ($role in ${credit.getPerson().getRole().replace(" ","").split(",")})
+							<option value = "$role" #if(${credit.getRole()} == $role)selected#else#end>$role</option>
+						#end
+					#else
+						<option value = "${credit.getPerson().getRole()}">${credit.getPerson().getRole()}</option>
 					#end
 					</select>
 					<input type = "text" name = "character$count" id ="character$count" value = "${credit.getCharacter()}" class="form-control col-lg-4"</input>
-				</div>					
+				</div>
+				#set($count = $count+1)					
 		 	#end
 		</div>
 		<div class="form-group">
@@ -73,7 +78,7 @@
 			<div class="container">
 			  <div class="row">
 			    <div class="col text-center">
-			      <input type="submit" class="btn btn-primary center-block">
+			      <input type="submit" class="btn btn-warning center-block">
 			    </div>
 			  </div>
 			</div>

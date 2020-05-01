@@ -101,7 +101,7 @@ public class ShowController
         	while(ctx.formParam("actor" + i) != null) {
         		int actorID = Integer.parseInt(ctx.formParam("actor" + i));
         		String role = ctx.formParam("role" + i);
-        		String character = (ctx.formParam("character" + i) == "") ? ctx.formParam("character" + i) : "N/A";
+        		String character = (ctx.formParam("character" + i) == "") ? "N/A" : ctx.formParam("character" + i);
         		creditRolls.add(new CreditsRoll(actorID, role, character, year, 0, showID));
         		i++;		
         	}
@@ -134,6 +134,11 @@ public class ShowController
     	model.put("image", image.getUrl());
     	
     	List<CreditsRoll> creditsRoll = CreditsRollDAO.getCreditsRollByShowID(Integer.toString(show.getShowID()));
+    	
+    	//need to change the person to get ALL roles as rn role is whatever is from credits roll
+    	for(CreditsRoll creditRoll : creditsRoll) {
+    		creditRoll.setPerson(PersonDAO.getPersonById(Integer.toString(creditRoll.getPerson().getPersonId())));
+    	}
     	model.put("credits" , creditsRoll);
 
     	model.put("submitted", ShowStatus.SUBMITTED.getNumDisplay());
@@ -158,14 +163,26 @@ public class ShowController
     	String genre = ctx.formParam("genre");
     	Double length = Double.parseDouble(ctx.formParam("length"));
     	int type = Integer.parseInt(ctx.formParam("type"));
-    	ProductionCompany proco = ProCoDAO.getProductionCompanyByName(ctx.formParam("production_company"));
+    	ProductionCompany proco = ProCoDAO.getProductionCompanyByID(Integer.parseInt(ctx.formParam("production_company")));
     	int year = Integer.parseInt(ctx.formParam("year"));
     	String synopsis = ctx.formParam("synopsis");
     	int status = Integer.parseInt(ctx.formParam("status"));	
     	
     	Show showToEdit = new Show(show_id, title, length, type, proco, genre, year, synopsis, status);
     	
-    	if(ShowDAO.EditShow(showToEdit)){
+    	ShowImage imageToEdit = new ShowImage(ctx.formParam("image"),show_id);
+    	
+    	List<CreditsRoll> creditRollsToEdit = new ArrayList<CreditsRoll>();
+    	int i = 1;
+    	while(ctx.formParam("actor" + i) != null) {
+    		int actorID = Integer.parseInt(ctx.formParam("actor" + i));
+    		String role = ctx.formParam("role" + i);
+    		String character = (ctx.formParam("character" + i) == "") ? "N/A" : ctx.formParam("character" + i) ;
+    		creditRollsToEdit.add(new CreditsRoll(actorID, role, character, year, 0, show_id));
+    		i++;		
+    	}
+    	  	
+    	if(ShowDAO.editShow(showToEdit) && ImageDAO.editShowImage(imageToEdit) && CreditsRollDAO.editCreditRolls(creditRollsToEdit)){
     		model.put("status", "Show successfully updated.");
     	}else {
     		model.put("status", "Show failed to update. Please try again.");
