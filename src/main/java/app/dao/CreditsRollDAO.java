@@ -54,7 +54,6 @@ public class CreditsRollDAO {
 						crToAdd.getPersonID(), crToAdd.getRole(), crToAdd.getShowID(), 
 						crToAdd.getStartYear(), crToAdd.getEndYear(), crToAdd.getCharacter());
 				
-
 				statement.executeUpdate(sql);
 			}
 			

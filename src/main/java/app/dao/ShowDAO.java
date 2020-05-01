@@ -22,7 +22,8 @@ public class ShowDAO {
 		try {
 			String sql = "SELECT * FROM `show`, production_company, show_image_show "
 					+ "WHERE `show`.proco_id = production_company.proco_id " 
-					+ "AND `show`.show_id = show_image_show.show_id " + "AND `show`.show_id =" + showid;
+					+ "AND `show`.show_id = show_image_show.show_id "
+					+ "AND `show`.show_id =" + showid;
 
 			Connection connection = DatabaseUtils.connectToDatabase();
 			Statement statement = connection.createStatement();

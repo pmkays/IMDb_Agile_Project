@@ -1,10 +1,13 @@
 package app.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
-
 import app.dao.utils.DatabaseUtils;
+import app.model.ProductionCompany;
+import app.model.Show;
 import app.model.ShowImage;
 
 public class ImageDAO {

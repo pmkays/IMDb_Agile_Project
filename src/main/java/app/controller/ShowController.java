@@ -127,6 +127,15 @@ public class ShowController
     	Show show = ShowDAO.getShowByID(ctx.queryParam("show"));
     	model.put("show", show);
     	
+    	List<ProductionCompany> procos = ProCoDAO.getAllProductionCompanies();
+    	model.put("procos", procos);
+    	
+    	ShowImage image = show.getImages().get(0);
+    	model.put("image", image.getUrl());
+    	
+    	List<CreditsRoll> creditsRoll = CreditsRollDAO.getCreditsRollByShowID(Integer.toString(show.getShowID()));
+    	model.put("credits" , creditsRoll);
+
     	model.put("submitted", ShowStatus.SUBMITTED.getNumDisplay());
     	model.put("pending", ShowStatus.PENDING.getNumDisplay());
     	model.put("rejected", ShowStatus.REJECTED.getNumDisplay());
