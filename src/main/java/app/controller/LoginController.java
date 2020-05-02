@@ -4,6 +4,8 @@ import app.controller.paths.Template;
 import app.controller.paths.Web;
 import app.controller.utils.RequestUtil;
 import app.controller.utils.ViewUtil;
+import app.dao.AccountDAO;
+import app.model.Account;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import java.util.Map;
@@ -30,6 +32,10 @@ public class LoginController {
             ctx.render(Template.LOGIN, model);
         } else {
             ctx.sessionAttribute("currentUser", getQueryUsername(ctx));
+            
+            Account account = AccountDAO.getUserByUsername(ctx.sessionAttribute("currentUser"));
+            ctx.sessionAttribute("currentUserRole", account.getRole());
+            model.put("currentUserRole", account.getRole());
             model.put("authenticationSucceeded", true);
             model.put("currentUser", getQueryUsername(ctx));
             if (RequestUtil.getQueryLoginRedirect(ctx) != null) {

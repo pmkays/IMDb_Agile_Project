@@ -50,7 +50,8 @@ public class AccountDAO {
                       				result.getString("last_name"),
                       				result.getString("country"),
                       				result.getString("gender"),
-                      				result.getString("email"))
+                      				result.getString("email"),
+                      				result.getString("role"))
                       );
             }
 

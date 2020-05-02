@@ -37,6 +37,12 @@
 			<p class = "bottompadding centred">${account.getGender()}</p>
 		</div>
 	</div>
+	<div class = "row">
+		<div class = "col">
+			<p class ="bold centred">Account Type:</p>
+			<p class = "bottompadding centred">${account.getRole()}</p>
+		</div>
+	</div>
 </div>
 
 <div class = "bottompadding">

@@ -15,13 +15,14 @@ public class Account {
     private String country;
     private String gender;
     private String email;
+    private String role;
 
     public Account(String un, String p) {
         username = un;
         password = p;
     }
 
-    public Account(String un, String p, String fn, String ln, String c, String g, String email) {
+    public Account(String un, String p, String fn, String ln, String c, String g, String email, String role) {
         // TODO fill in here
         /* You should use this constructor when you are showing the account page,
         hence, the user is already logged in. Therefore, the username Should be used
@@ -37,6 +38,7 @@ public class Account {
     	this.country = c;
     	this.gender = g;
     	this.email = email;
+    	this.role = role;
     }
 
     public void updateDetails() {
@@ -70,5 +72,9 @@ public class Account {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public String getRole() {
+		return role;
 	}
 }

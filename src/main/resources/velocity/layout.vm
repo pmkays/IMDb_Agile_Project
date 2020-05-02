@@ -69,17 +69,22 @@
 	  	<input class="form-control form-control-sm search2" type = "text" name = "searchQuery" required></input>
 	  	<button type="submit" class="btn btn-sm btn-outline-secondary search3"><i class="fas fa-search"></i>.</button>
     </form>
+
       </li>
       #if($currentUser)
-                    <li class="nav-item">
-                        <form method="post" action="/logout">
-                            <button id="logout">Log Out</button>
-                        </form>
-                    </li>
-                    <li class="nav-item"><a href="/account" id="account">Account</a></li>
-                #else
-                    <li class="nav-item"><a href="/login" id="login">Log In</a></li>
-                #end
+          #if($currentUserRole == "Admin")
+	    	<li class = "nav-item"><a href ="/show/status" id = "edit" >Edit Shows</a></li>
+	      #end
+	      	<li class = "nav-item"><a href ="/show/new" id = "edit" >Add Show</a></li>
+	        <li class="nav-item"><a href="/account" id="account">Account</a></li>
+            <li class="nav-item">
+                <form method="post" action="/logout">
+                    <button id="logout">Log Out</button>
+                </form>
+            </li>
+      #else
+            <li class="nav-item"><a href="/login" id="login">Log In</a></li>
+      #end
     </ul>
    
   </div>

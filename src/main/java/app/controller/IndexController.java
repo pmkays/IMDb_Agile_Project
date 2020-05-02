@@ -4,6 +4,8 @@ import java.util.Map;
 
 import app.controller.paths.Template;
 import app.controller.utils.ViewUtil;
+import app.dao.AccountDAO;
+import app.model.Account;
 import io.javalin.http.Handler;
 
 
@@ -14,6 +16,7 @@ public class IndexController {
 
     public static Handler serveIndexPage = ctx -> {
         Map<String, Object> model = ViewUtil.baseModel(ctx);
+        
         String queryType = ctx.queryParam("queryType");
     	String searchQuery = ctx.queryParam("searchQuery");
         if(queryType == null){
