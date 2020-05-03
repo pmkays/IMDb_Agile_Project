@@ -6,7 +6,36 @@
 </head>
 
 <body class = "body">
-<h1> Edit a Show <button> Delete Show </button> </h1>
+
+<form action = "/show/delete/" method = "post">
+
+	<input type="hidden" id="show_id" name="show_id" value ="${show.getShowID()}">
+	<textarea style = "display:none" id="image" name = "image" class="form-control" required>${image}</textarea>
+
+	<div style = "display:none">
+		#set($count = 1)
+		#foreach($credit in ${credits})
+			<input type = "hidden" name = "actor$count" id="actor$count" value = "${credit.getPerson().getPersonId()}">
+			<input type="text"  value = "${credit.getPerson().getFullName()}" class = "form-control col-lg-4" readonly>
+			<select name = "role$count" id ="role$count" class="form-control col-lg-4">
+				#if(${credit.getPerson().getRole().contains(",")})
+					#foreach ($role in ${credit.getPerson().getRole().replace(" ","").split(",")})
+						<option value = "$role" #if(${credit.getRole()} == $role)selected#else#end>$role</option>
+					#end
+				#else
+					<option value = "${credit.getPerson().getRole()}">${credit.getPerson().getRole()}</option>
+				#end
+			</select>
+			<input type = "text" name = "character$count" id ="character$count" value = "${credit.getCharacter()}" class="form-control col-lg-4"</input>
+			#set($count = $count+1)
+		#end
+	</div>
+
+	<button> Delete Show </button>
+
+</form>
+
+<h1> Edit a Show  </h1>
 	<form action = "/show/edit/" method ="post">
 		<div class="form-group">
 			<label for = "show_title">Title: </label>
@@ -71,7 +100,7 @@
 		<div class="form-group">
 			<label for = "status"> Status: </label>
 			<select name="status" id = "status" class="form-control">
-				<option value = "1" #if(${show.getStatus()} == ${under_inv} ||${show.getStatus()} == ${submitted})selected#else#end>Under Investigation</option>				
+				<option value = "1" #if(${show.getStatus()} == ${under_inv} ||${show.getStatus()} == ${submitted})selected#else#end>Under Investigation</option>
 				<option value = "2" #if(${show.getStatus()} == ${pending})selected#else#end>Pending</option>
 				<option value = "3" #if(${show.getStatus()} == ${suspended})selected#else#end>Suspended</option>
 				<option value = "4" #if(${show.getStatus()} == ${visible})selected#else#end>Visible</option>

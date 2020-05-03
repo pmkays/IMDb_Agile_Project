@@ -228,6 +228,32 @@ public class ShowDAO {
 		return success;
 	}
 
+	// DELETE SHOW METHOD HERE
+
+	public static boolean deleteShow(Show showToDelete)
+	{
+		boolean success = true;
+
+		try {
+			String sql = String.format("DELETE FROM `show` WHERE show_id = %d", showToDelete.getShowID());
+
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+			if(rowCount == 0){
+				success = false;
+			}
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+
+		return success;
+	}
+
 	public static List<Show> getAllShows()
 	{
 		List<Show> shows = new ArrayList<>();

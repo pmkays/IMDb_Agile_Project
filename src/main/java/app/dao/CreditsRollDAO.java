@@ -80,7 +80,7 @@ public class CreditsRollDAO {
 			for (CreditsRoll creditRoll : creditRollsToEdit) {
 				String sql = String.format("UPDATE `credits_roll` SET `role` = '%s', "
 						+ "`start_year` = %d, character_name = '%s' "
-						+ "WHERE show_id = %d AND person_id = %d", 
+						+ "WHERE show_id = %d AND person_id = %d",
 						creditRoll.getRole(), creditRoll.getStartYear(), creditRoll.getCharacter(), creditRoll.getShowID(), creditRoll.getPersonID());
 
 				statement.executeUpdate(sql);
@@ -97,4 +97,28 @@ public class CreditsRollDAO {
 		return success;
 	}
 
+	public static boolean deleteCreditRolls(List<CreditsRoll> creditRollsToDelete)
+	{
+		boolean success = true;
+
+		try {
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+
+			for (CreditsRoll creditRoll : creditRollsToDelete) {
+				String sql = String.format("DELETE FROM `credits_roll` WHERE show_id = %d", creditRoll.getShowID());
+
+				statement.executeUpdate(sql);
+			}
+
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+
+		return success;
+	}
 }

@@ -157,7 +157,7 @@ public class ShowController
     
     public static Handler handleEditShowForm = ctx ->{
     	Map<String, Object> model = ViewUtil.baseModel(ctx);
-    	
+
     	int show_id = Integer.parseInt(ctx.formParam("show_id"));
     	String title = ctx.formParam("show_title");
     	String genre = ctx.formParam("genre");
@@ -166,12 +166,12 @@ public class ShowController
     	ProductionCompany proco = ProCoDAO.getProductionCompanyByID(Integer.parseInt(ctx.formParam("production_company")));
     	int year = Integer.parseInt(ctx.formParam("year"));
     	String synopsis = ctx.formParam("synopsis");
-    	int status = Integer.parseInt(ctx.formParam("status"));	
-    	
+    	int status = Integer.parseInt(ctx.formParam("status"));
+
     	Show showToEdit = new Show(show_id, title, length, type, proco, genre, year, synopsis, status);
-    	
+
     	ShowImage imageToEdit = new ShowImage(ctx.formParam("image"),show_id);
-    	
+
     	List<CreditsRoll> creditRollsToEdit = new ArrayList<CreditsRoll>();
     	int i = 1;
     	while(ctx.formParam("actor" + i) != null) {
@@ -179,9 +179,9 @@ public class ShowController
     		String role = ctx.formParam("role" + i);
     		String character = (ctx.formParam("character" + i) == "") ? "N/A" : ctx.formParam("character" + i) ;
     		creditRollsToEdit.add(new CreditsRoll(actorID, role, character, year, 0, show_id));
-    		i++;		
+    		i++;
     	}
-    	  	
+
     	if(ShowDAO.editShow(showToEdit) && ImageDAO.editShowImage(imageToEdit) && CreditsRollDAO.editCreditRolls(creditRollsToEdit)){
     		model.put("status", "Show successfully updated.");
     	}else {
@@ -189,6 +189,49 @@ public class ShowController
     	}
     	ctx.render(Template.FORM_OUTCOME, model);
     };
+
+    // HANDLE SHOW DELETE HERE
+
+	public static Handler handleDeleteShowButton = ctx ->
+	{
+		Map<String, Object> model = ViewUtil.baseModel(ctx);
+
+		int show_id = Integer.parseInt(ctx.formParam("show_id"));
+
+		Show show = ShowDAO.getShowByID(String.valueOf(show_id));
+
+		String title = show.getShowTitle();
+		String genre = show.getGenre();
+		Double length = show.getLength();
+		int type = show.getType();
+		ProductionCompany proco = show.getProco();
+		int year = show.getYear();
+		String synopsis = show.getSynopsis();
+		int status = show.getStatus();
+
+		Show showToDelete = new Show(show_id, title, length, type, proco, genre, year, synopsis, status);
+
+		ShowImage imageToDelete = new ShowImage(ctx.formParam("image"),show_id);
+
+		List<CreditsRoll> creditRollsToDelete = new ArrayList<CreditsRoll>();
+		int i = 1;
+		while(ctx.formParam("actor" + i) != null) {
+			int actorID = Integer.parseInt(ctx.formParam("actor" + i));
+			String role = ctx.formParam("role" + i);
+			String character = (ctx.formParam("character" + i) == "") ? "N/A" : ctx.formParam("character" + i) ;
+			creditRollsToDelete.add(new CreditsRoll(actorID, role, character, year, 0, show_id));
+			i++;
+		}
+
+		if(CreditsRollDAO.deleteCreditRolls(creditRollsToDelete) && ImageDAO.deleteShowImage(imageToDelete) && ShowDAO.deleteShow(showToDelete)){
+			model.put("status", "Show successfully deleted.");
+		}else {
+			model.put("status", "Show failed to delete. Please try again.");
+		}
+		ctx.render(Template.FORM_OUTCOME, model);
+	};
+
+	// END OF METHOD
 
 	public static Handler serveShowsByStatusPage = ctx -> {
 		Map<String, Object> model = ViewUtil.baseModel(ctx);
