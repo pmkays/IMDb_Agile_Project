@@ -1,7 +1,12 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
+
+<head>
+	<link rel="stylesheet" href="/editShows.css">
+</head>
+
 <body class = "body">
-	<h1> Edit a Show </h1>
+<h1> Edit a Show <button> Delete Show </button> </h1>
 	<form action = "/show/edit/" method ="post">
 		<div class="form-group">
 			<label for = "show_title">Title: </label>
