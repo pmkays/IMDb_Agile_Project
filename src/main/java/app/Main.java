@@ -48,6 +48,8 @@ public class Main {
             get(Web.EDIT_SHOW, ShowController.serveEditShowForm);
             post(Web.EDIT_SHOW, ShowController.handleEditShowForm);
 
+            post(Web.DELETE_SHOW, ShowController.handleDeleteShowButton);
+
             get(Web.SHOW_BY_STATUS, ShowController.serveShowsByStatusPage);
 
             // Add new actions here

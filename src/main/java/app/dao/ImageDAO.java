@@ -60,4 +60,29 @@ public class ImageDAO {
 		return success;
 	}
 
+	public static boolean deleteShowImage(ShowImage imageToDelete)
+	{
+		boolean success = true;
+
+		try {
+			String sql = String.format("DELETE FROM `show_image_show` WHERE show_id = %d", imageToDelete.getShowID());
+
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+			if(rowCount == 0){
+				success = false;
+			}
+
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+
+		return success;
+	}
+
 }
