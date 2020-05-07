@@ -19,5 +19,6 @@
 				</tr>
 		 	#end
 		</table>
+		<a href = "/show/?show=${show.getShowID()}">Back to show page</a>
 	</div>
 #end
