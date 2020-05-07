@@ -31,7 +31,7 @@
 		#end
 	</div>
 
-	<button> Delete Show </button>
+	<button class="red-button"> Delete Show </button>
 
 </form>
 

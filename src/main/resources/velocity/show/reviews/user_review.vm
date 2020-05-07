@@ -1,4 +1,23 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
-${review.getReview()}
+<div>
+		<h1 class>Reviews</h1>
+		<table class = "table">
+			<tr>
+				<th>Title</th>
+				<th>Rating</th>
+				<th>Review</th>
+				<th>Date</th>
+				<th></th>
+			</tr>
+			#foreach( $review in ${reviews} )
+			    <tr>
+					<td>${review.getTitle()}</td>
+					<td>${review.getRating()}</td>
+					<td>${review.getReview()}</td>
+					<td>${review.getDate()}</td>
+				</tr>
+		 	#end
+		</table>
+	</div>
 #end

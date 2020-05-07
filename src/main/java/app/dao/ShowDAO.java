@@ -67,6 +67,7 @@ public class ShowDAO {
 						"WHERE upper(show_title) like '%"
 						+ filter.toUpperCase() + "%'" + 
 						"AND production_company.proco_id = `show`.proco_id " +
+						"AND `show`.status = 4 " +
 						"AND `show`.show_id = show_image_show.show_id";
 
 			Connection connection = DatabaseUtils.connectToDatabase();
@@ -109,6 +110,7 @@ public class ShowDAO {
 			String sql = "SELECT distinct * FROM person, credits_roll, `show`, production_company, show_image_show "
 					+ "WHERE credits_roll.person_id = person.person_id " + "AND `show`.show_id = credits_roll.show_id "
 					+ "AND `show`.show_id = show_image_show.show_id " 
+					+ "AND `show`.status = 4 "
 					+ "AND production_company.proco_id = `show`.proco_id " + "AND UPPER(person.fullname) LIKE '%"
 					+ name.toUpperCase() + "%' GROUP BY `show`.show_id;";
 
@@ -295,5 +297,7 @@ public class ShowDAO {
 			return shows;
 		return null;
 	}
+	
+	
 
 }
