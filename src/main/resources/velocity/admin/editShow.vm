@@ -100,11 +100,22 @@
 		<div class="form-group">
 			<label for = "status"> Status: </label>
 			<select name="status" id = "status" class="form-control">
+				#if(${show.getStatus()} == ${under_inv} ||${show.getStatus()} == ${submitted})
 				<option value = "1" #if(${show.getStatus()} == ${under_inv} ||${show.getStatus()} == ${submitted})selected#else#end>Under Investigation</option>
-				<option value = "2" #if(${show.getStatus()} == ${pending})selected#else#end>Pending</option>
+				#elseif(${show.getStatus()} == ${suspended})
 				<option value = "3" #if(${show.getStatus()} == ${suspended})selected#else#end>Suspended</option>
-				<option value = "4" #if(${show.getStatus()} == ${visible})selected#else#end>Visible</option>
+				<option value = "2" #if(${show.getStatus()} == ${pending})selected#else#end>Pending</option>
 				<option value = "5" #if(${show.getStatus()} == ${rejected})selected#else#end>Rejected</option>
+				#elseif(${show.getStatus()} == ${pending}) 
+				<option value = "2" #if(${show.getStatus()} == ${pending})selected#else#end>Pending</option>
+				<option value = "4" #if(${show.getStatus()} == ${visible})selected#else#end>Visible</option>
+				#elseif(${show.getStatus()} == ${visible})
+				<option value = "4" #if(${show.getStatus()} == ${visible})selected#else#end>Visible</option>
+				<option value = "3" #if(${show.getStatus()} == ${suspended})selected#else#end>Suspended</option>
+				#elseif(${show.getStatus()} == ${rejected})
+				<option value = "5" #if(${show.getStatus()} == ${rejected})selected#else#end>Rejected</option>
+				#end
+		
 			</select>
 		</div>
 		<div class="form-group">
