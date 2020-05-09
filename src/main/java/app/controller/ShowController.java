@@ -29,11 +29,12 @@ public class ShowController
     {
         Map<String, Object> model = ViewUtil.baseModel(ctx);
 
-        Show show = ShowDAO.getShowByID(ctx.queryParam("show"));
-        List<CreditsRoll> creditsRoll = CreditsRollDAO.getCreditsRollByShowID(ctx.queryParam("show"));
+        String showText = ctx.queryParam("show");
+        Show show = ShowDAO.getShowByID(showText);
+        List<CreditsRoll> creditsRoll = CreditsRollDAO.getCreditsRollByShowID(showText);
         String duration = Double.toString(show.getLength());
         String userID = ctx.sessionAttribute("currentUser");
-        double averageRating = UserReviewDAO.getShowAverageRating(ctx.queryParam("show"));
+        double averageRating = UserReviewDAO.getShowAverageRating(showText);
 
         model.put("show", show);
         model.put("hour",duration.substring(0,1));
