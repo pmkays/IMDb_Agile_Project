@@ -12,8 +12,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import app.controller.paths.Template;
 import app.controller.utils.ViewUtil;
 import app.dao.AccountDAO;
+import app.dao.ProCoDAO;
 import app.dao.UserReviewDAO;
 import app.model.Account;
+import app.model.ProductionCompany;
 import app.model.UserReview;
 import io.javalin.http.Handler;
 
@@ -36,7 +38,8 @@ public class AccountController {
     public static Handler serveNewAccountForm = ctx -> {
         Map<String, Object> model = ViewUtil.baseModel(ctx);			
 		
-        // You'll have to update the model... maybe here
+        List<ProductionCompany> procos = ProCoDAO.getAllProductionCompanies();
+        model.put("procos", procos);
         ctx.render(Template.NEW_ACCOUNT, model);
     };
     
@@ -54,21 +57,33 @@ public class AccountController {
         String pass1 = ctx.formParam("password1");
         String pass2 = ctx.formParam("password2");
         String role = ctx.formParam("user_type");
-        String orgName = ctx.formParam("organisation_name") == null ? "N/A" : ctx.formParam("organisation_name");
-        String orgNum = ctx.formParam("organisation_number") == null ? "N/A" : ctx.formParam("organisation_number");   
         
-        if(pass1.equals(pass2)) {
-            String hashedPassword = BCrypt.hashpw(pass1, AccountDAO.SALT);        	
-        	success = AccountDAO.addNewAccount(new Account(userName, hashedPassword, firstName, lastName, 
-        			country, gender, email, role, postCode, year, orgName, orgNum, 0));     	
+        int procoId = 0;
+        String orgName = "";
+        if(ctx.formParam("organisation_name") != null) {
+        	try {
+        		procoId = Integer.parseInt(ctx.formParam("organisation_name"));
+        		orgName = ProCoDAO.getProductionCompanyByID(procoId).getName();
+        	}catch(Exception e) {
+        		orgName = ctx.formParam("organisation_name");
+        	}
+        }else {
+        	orgName = "N/A";
         }
-        
+        String orgNum = ctx.formParam("organisation_number") == null ? "N/A" : ctx.formParam("organisation_number");
+
+        if(pass1.equals(pass2)) {
+            String hashedPassword = BCrypt.hashpw(pass1, AccountDAO.SALT);       	
+        	success = AccountDAO.addNewAccount(new Account(userName, hashedPassword, firstName, lastName, 
+        			country, gender, email, role, postCode, year, orgName, orgNum, 0, procoId));     	
+        }
+           
         String output = "";
         
         if(success) {
-        	output += "Your new account request has been received. A member of our team will process it shortly.";
+        	output = "Your new account request has been received. A member of our team will process it shortly.";
         }else {
-        	output += "There was an error with your new account request. Please try again.";
+        	output = "There was an error with your new account request. Please try again.";
         }
         
         model.put("status", output);

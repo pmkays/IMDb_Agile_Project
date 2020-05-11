@@ -327,7 +327,7 @@
 		var organisationName = document.getElementById("org_name");
 		var organisationNumber = document.getElementById("org_number");
 		
-		if( userType == "critic" || userType == "pco"){
+		if( userType == "critic"){
 			organisationName.style.display = "block";
 			organisationNumber.style.display = "block";			
 			
@@ -336,6 +336,32 @@
 			
 			organisationNumber.innerHTML = "<label for = 'organisation_number'>Organisation Number:</label>";
 			organisationNumber.innerHTML += "<input type = 'text' name = 'organisation_number' id = 'organisation_number' class = 'form-control' required>";				
+		} else if(userType == "pco"){
+			organisationName.style.display = "block";
+			organisationNumber.style.display = "block";			
+			
+			organisationName.innerHTML = "<label for = 'organisation_name'>Organisation Name:</label>";
+			var select = document.createElement("select");
+			select.id = "organisation_name";
+			select.name = "organisation_name";
+			select.className = "form-control";
+			#foreach($proco in ${procos})
+			    	var option = document.createElement("option");
+			    	option.value = ${proco.getProductID()};
+			    	option.text = "${proco.getName()}";
+			    	select.appendChild(option);
+			#end
+			organisationName.appendChild(select);
+			
+			/*var allProcos = "";
+			#foreach($proco in ${procos})
+			    	allProcos += "<option value = '${proco.getProductID()}'>${proco.getName()}</option>"
+			#end
+			organisationName.innerHTML += allProcos; 
+			organisationName.innerHTML += "</select>"; */
+			organisationNumber.innerHTML = "<label for = 'organisation_number'>Organisation Number:</label>";
+			organisationNumber.innerHTML += "<input type = 'text' name = 'organisation_number' id = 'organisation_number' class = 'form-control' required>";				
+			
 		} else{
 			organisationName.style.display = "none";
 			organisationNumber.style.display = "none";

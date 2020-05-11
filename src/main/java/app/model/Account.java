@@ -23,6 +23,7 @@ public class Account {
     private String organisationName; 
     private String organisationNumber;
     private int status;
+    private int procoId;
 
     public Account(String un, String p) {
         username = un;
@@ -49,7 +50,8 @@ public class Account {
     	this.role = role;
     }
     public Account(String un, String p, String fn, String ln, String c, String g, 
-    		String email, String role, String postCode, String year, String organisationName, String organisationNumber, int status) {
+    		String email, String role, String postCode, String year, 
+    		String organisationName, String organisationNumber, int status) {
     	this.username = un;
     	this.password = p;
     	this.firstName = fn;
@@ -63,6 +65,26 @@ public class Account {
     	this.organisationName = organisationName;
     	this.organisationNumber = organisationNumber;
     	this.status = status;
+    }
+    
+    public Account(String un, String p, String fn, String ln, String c, String g, 
+    		String email, String role, String postCode, String year, 
+    		String organisationName, String organisationNumber, int status, int procoId) {
+    	this.username = un;
+    	this.password = p;
+    	this.firstName = fn;
+    	this.lastName = ln;
+    	this.country = c;
+    	this.gender = g;
+    	this.email = email;
+    	this.role = role;
+    	this.postCode = postCode; 
+    	this.year = year;
+    	this.organisationName = organisationName;
+    	this.organisationNumber = organisationNumber;
+    	this.status = status;
+    	this.procoId = procoId;
+    	this.procoId = procoId;
     }
 
     public void updateDetails() {
@@ -120,5 +142,9 @@ public class Account {
 	
 	public int getStatus() {
 		return status;
+	}
+	
+	public int getProcoId() {
+		return procoId;
 	}
 }

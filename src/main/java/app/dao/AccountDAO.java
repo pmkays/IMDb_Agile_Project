@@ -74,15 +74,31 @@ public class AccountDAO {
 		boolean success = true;
 
 		try {
-			String sql = String.format("INSERT INTO `account` (`username`, `password`, "
-					+ "email, country, gender, first_name, last_name, role, "
-					+ "post_code, organisation_name, organisation_number, `year`, `status`) VALUES "
-					+ "('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d);", 
-					acct.getUsername(), acct.getPassword(), 
-					acct.getEmail(), acct.getCountry(), acct.getGender(), 
-					acct.getFirstName(), acct.getLastName(), acct.getRole(), 
-					acct.getPostCode(), acct.getOrganisationName(), 
-					acct.getOrganisationNumber(), acct.getYear(), acct.getStatus());
+			String sql;
+			
+			//procoId of 0 means that users aren't PCo so leave it as null value
+			if(acct.getProcoId() == 0) {
+				sql = String.format("INSERT INTO `account` (`username`, `password`, "
+						+ "email, country, gender, first_name, last_name, role, "
+						+ "post_code, organisation_name, organisation_number, `year`, `status`) VALUES "
+						+ "('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d);", 
+						acct.getUsername(), acct.getPassword(), 
+						acct.getEmail(), acct.getCountry(), acct.getGender(), 
+						acct.getFirstName(), acct.getLastName(), acct.getRole(), 
+						acct.getPostCode(), acct.getOrganisationName(), 
+						acct.getOrganisationNumber(), acct.getYear(), acct.getStatus());
+			} else {
+				sql = String.format("INSERT INTO `account` (`username`, `password`, "
+						+ "email, country, gender, first_name, last_name, role, "
+						+ "post_code, organisation_name, organisation_number, `year`, `status`, proco_id) VALUES "
+						+ "('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d, %d);", 
+						acct.getUsername(), acct.getPassword(), 
+						acct.getEmail(), acct.getCountry(), acct.getGender(), 
+						acct.getFirstName(), acct.getLastName(), acct.getRole(), 
+						acct.getPostCode(), acct.getOrganisationName(), 
+						acct.getOrganisationNumber(), acct.getYear(), acct.getStatus(), acct.getProcoId());
+			}
+			
 			
 			Connection connection = DatabaseUtils.connectToDatabase();
 			Statement statement = connection.createStatement();
