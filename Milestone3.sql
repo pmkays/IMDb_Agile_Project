@@ -31,8 +31,15 @@ CREATE TABLE `account` (
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `role` varchar(45) NOT NULL,
+  `post_code` varchar(10),
+  `organisation_name` varchar(100),
+  `organisation_number` varchar(20),
+  `proco_id` int(11),
+  `year` varchar(4),
+  `status` int(11),
   PRIMARY KEY (`username`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  CONSTRAINT `fk_proco_account` FOREIGN KEY (`proco_id`) REFERENCES `production_company` (`proco_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,8 +49,8 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('caramel6','$2a$10$h.dl5J86rGH7I8bD9bZeZeci0pDt0.VwFTGujlnEaZXPf/q7vM5wO','caramelwilson@gmail.com','Australia','Female','Cara','Wilson', 'general');
-INSERT INTO `account` VALUES ('admin','$2a$10$h.dl5J86rGH7I8bD9bZeZerflzEsjpOgodpk5A70Pq0n8fWRejri2','admin@hotmail.com','Australia','Male','Ian','Penguin', 'Admin');
+INSERT INTO `account` VALUES ('caramel6','$2a$10$h.dl5J86rGH7I8bD9bZeZeci0pDt0.VwFTGujlnEaZXPf/q7vM5wO','caramelwilson@gmail.com','Australia','Female','Cara','Wilson', 'general', null, null, null, null, null, null);
+INSERT INTO `account` VALUES ('admin','$2a$10$h.dl5J86rGH7I8bD9bZeZerflzEsjpOgodpk5A70Pq0n8fWRejri2','admin@hotmail.com','Australia','Male','Ian','Penguin', 'Admin', null, null, null, null, null, null);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
