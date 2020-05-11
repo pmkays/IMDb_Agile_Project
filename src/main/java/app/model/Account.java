@@ -16,13 +16,21 @@ public class Account {
     private String gender;
     private String email;
     private String role;
+    
+   //m3 additions to match with form 
+    private String postCode; 
+    private String year;
+    private String organisationName; 
+    private String organisationNumber;
+    private int status;
 
     public Account(String un, String p) {
         username = un;
         password = p;
     }
 
-    public Account(String un, String p, String fn, String ln, String c, String g, String email, String role) {
+    public Account(String un, String p, String fn, String ln, String c, String g, 
+    		String email, String role) {
         // TODO fill in here
         /* You should use this constructor when you are showing the account page,
         hence, the user is already logged in. Therefore, the username Should be used
@@ -39,6 +47,22 @@ public class Account {
     	this.gender = g;
     	this.email = email;
     	this.role = role;
+    }
+    public Account(String un, String p, String fn, String ln, String c, String g, 
+    		String email, String role, String postCode, String year, String organisationName, String organisationNumber, int status) {
+    	this.username = un;
+    	this.password = p;
+    	this.firstName = fn;
+    	this.lastName = ln;
+    	this.country = c;
+    	this.gender = g;
+    	this.email = email;
+    	this.role = role;
+    	this.postCode = postCode; 
+    	this.year = year;
+    	this.organisationName = organisationName;
+    	this.organisationNumber = organisationNumber;
+    	this.status = status;
     }
 
     public void updateDetails() {
@@ -76,5 +100,25 @@ public class Account {
 	
 	public String getRole() {
 		return role;
+	}
+	
+	public String getPostCode() {
+		return postCode;
+	}
+	
+	public String getOrganisationName() {
+		return organisationName;
+	}
+	
+	public String getOrganisationNumber() {
+		return organisationNumber;
+	}
+	
+	public String getYear() {
+		return year;
+	}
+	
+	public int getStatus() {
+		return status;
 	}
 }

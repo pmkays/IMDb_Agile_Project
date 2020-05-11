@@ -33,6 +33,9 @@ public class Main {
             post(Web.LOGOUT, LoginController.handleLogoutPost);
 
             get(Web.ACCOUNT, AccountController.serveAccountPage);
+            get(Web.ADD_ACCOUNT, AccountController.serveNewAccountForm);
+            post(Web.ADD_ACCOUNT, AccountController.handleNewAccountForm);
+            
             get(Web.SHOW, ShowController.serveShowPage);
             get(Web.USER_REVIEW_FORM, UserReviewController.serveReviewForm);
             post(Web.USER_REVIEW_SUBMIT, UserReviewController.serveReviewSubmit);

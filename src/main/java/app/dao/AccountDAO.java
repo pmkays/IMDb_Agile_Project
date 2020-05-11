@@ -8,6 +8,7 @@ import java.util.List;
 
 import app.dao.utils.DatabaseUtils;
 import app.model.Account;
+import app.model.Show;
 
 
 
@@ -68,6 +69,37 @@ public class AccountDAO {
         // If we are here, something bad happened
         return null;
     }
+    
+    public static boolean addNewAccount(Account acct) {
+		boolean success = true;
+
+		try {
+			String sql = String.format("INSERT INTO `account` (`username`, `password`, "
+					+ "email, country, gender, first_name, last_name, role, "
+					+ "post_code, organisation_name, organisation_number, `year`, `status`) VALUES "
+					+ "('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d);", 
+					acct.getUsername(), acct.getPassword(), 
+					acct.getEmail(), acct.getCountry(), acct.getGender(), 
+					acct.getFirstName(), acct.getLastName(), acct.getRole(), 
+					acct.getPostCode(), acct.getOrganisationName(), 
+					acct.getOrganisationNumber(), acct.getYear(), acct.getStatus());
+			
+			Connection connection = DatabaseUtils.connectToDatabase();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(sql);
+			
+			
+			statement.close();
+			DatabaseUtils.closeConnection(connection);
+			
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+		
+		return success;
+		
+	}
 
 
 
