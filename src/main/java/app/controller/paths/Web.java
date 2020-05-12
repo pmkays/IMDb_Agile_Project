@@ -13,6 +13,7 @@ public class Web {
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
     public static final String ACCOUNT = "/account";
+    public static final String LIST_ACCOUNT = "/account/list";
     public static final String ADD_ACCOUNT = "/account/new";
     public static final String SHOW = "/show";
     public static final String USER_REVIEW_FORM = "/user_review_form";
@@ -26,4 +27,5 @@ public class Web {
     public static final String EDIT_SHOW = "/show/edit";
     public static final String DELETE_SHOW = "/show/delete";
     public static final String SHOW_BY_STATUS = "/show/status";
+    public static final String SHOW_FOR_PROCO = "/show/proco";
 }

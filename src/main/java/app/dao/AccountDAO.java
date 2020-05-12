@@ -52,7 +52,14 @@ public class AccountDAO {
                       				result.getString("country"),
                       				result.getString("gender"),
                       				result.getString("email"),
-                      				result.getString("role"))
+                      				result.getString("role"),
+                      				result.getString("post_code"),
+                      				result.getString("year"),
+                      				result.getString("organisation_name"),
+                      				result.getString("organisation_number"),
+                      				result.getInt("status"),
+                      				result.getString("proco_id"))
+                      				
                       );
             }
 
@@ -77,7 +84,7 @@ public class AccountDAO {
 			String sql;
 			
 			//procoId of 0 means that users aren't PCo so leave it as null value
-			if(acct.getProcoId() == 0) {
+			if(acct.getProcoId().equals("0")) {
 				sql = String.format("INSERT INTO `account` (`username`, `password`, "
 						+ "email, country, gender, first_name, last_name, role, "
 						+ "post_code, organisation_name, organisation_number, `year`, `status`) VALUES "
@@ -117,6 +124,69 @@ public class AccountDAO {
 		
 	}
 
+	public static List<Account> getPendingAccounts() {
+		// Fish out the results
+        List<Account> accounts = new ArrayList<>();
 
+        try {
+            // Here you prepare your sql statement
+            String sql = "SELECT * FROM account WHERE status = 0";
+
+            // Execute the query
+            Connection connection = DatabaseUtils.connectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            // If you have multiple results, you do a while
+            while(result.next()) {
+                // 2) Add it to the list we have prepared
+            	accounts.add(
+                        // 1) Create a new account object
+                      		new Account(
+                      				result.getString("username"),
+                      				result.getString("password"),
+                      				result.getString("first_name"),
+                      				result.getString("last_name"),
+                      				result.getString("country"),
+                      				result.getString("gender"),
+                      				result.getString("email"),
+                      				result.getString("role"),
+                      				result.getString("post_code"),
+                      				result.getString("year"),
+                      				result.getString("organisation_name"),
+                      				result.getString("organisation_number"),
+                      				result.getInt("status"),
+                      				result.getString("proco_id"))
+                      );
+            }
+
+            // Close it
+            DatabaseUtils.closeConnection(connection);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accounts;
+	}
+	
+	public static void updateAccountStatus(String username, String status) {
+	       try {
+	            String sql = String.format("UPDATE account " + 
+	            		"SET status = " + status + 
+	            		" where username = '"+ username +"'");
+
+	            // Execute the query
+	            Connection connection = DatabaseUtils.connectToDatabase();
+	            Statement statement = connection.createStatement();
+	            statement.executeUpdate(sql);
+
+	            // Close it
+	            DatabaseUtils.closeConnection(connection);
+	        }
+	        catch (Exception e) {
+	            e.printStackTrace();
+	        }
+		
+	}
 
 }

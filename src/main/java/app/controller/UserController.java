@@ -19,7 +19,7 @@ public class UserController {
             return false;
         }
         Account user = AccountDAO.getUserByUsername(username);
-        if (user == null) {
+        if (user == null || user.getStatus() != 2) {
             return false;
         }
 

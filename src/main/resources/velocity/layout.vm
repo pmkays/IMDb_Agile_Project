@@ -52,12 +52,14 @@
           <a class="dropdown-item" href="#">About Us</a>
           <a class="dropdown-item" href="#">Movies</a>
           #if($currentUser)
-          <a class="dropdown-item"  href ="/show/new" id = "edit" >Add Show</a>
+          <a class="dropdown-item"  href ="/show/new" id = "edit" >Add Show</a>#end
           #if($currentUserRole == "Admin")
 	    	<a class="dropdown-item"  href ="/show/status" id = "edit" >Edit Shows</a>
+	    	<a class="dropdown-item"  href ="/account/list" id = "edit" >Pending Accounts</a>#end
+	      #if($currentUser && $currentUserRole != "Admin" && $currentProcoID != "0")
+	    	<a class="dropdown-item"  href ="/show/proco" id = "edit" >Edit Shows</a>
 	      #end
-	      	
-	      #end
+	      
           <a class="dropdown-item" href="#">TV Shows</a>
           <a class="dropdown-item" href="#">Celebs</a>
           <a class="dropdown-item" href="#">Community</a>

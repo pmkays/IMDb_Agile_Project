@@ -33,6 +33,8 @@ public class Main {
             post(Web.LOGOUT, LoginController.handleLogoutPost);
 
             get(Web.ACCOUNT, AccountController.serveAccountPage);
+            post(Web.ACCOUNT, AccountController.updateAccountStatus);
+            get(Web.LIST_ACCOUNT, AccountController.serveAccountListPage);
             get(Web.ADD_ACCOUNT, AccountController.serveNewAccountForm);
             post(Web.ADD_ACCOUNT, AccountController.handleNewAccountForm);
             
@@ -54,6 +56,7 @@ public class Main {
             post(Web.DELETE_SHOW, ShowController.handleDeleteShowButton);
 
             get(Web.SHOW_BY_STATUS, ShowController.serveShowsByStatusPage);
+            get(Web.SHOW_FOR_PROCO, ShowController.serveShowsForProco);
 
             // Add new actions here
             // Seeing pages (get) and sending information in forms (post)

@@ -41,6 +41,26 @@
 		<div class = "col">
 			<p class ="bold centred">Account Type:</p>
 			<p class = "bottompadding centred">${account.getRole()}</p>
+			#if($currentUserRole == "Admin" && ${account.getRole()} != "Admin")
+			<form method="post" action = "/account">
+				<div class="form-group  formz">
+					<input type="hidden" name="username" value="${account.getUsername()}"/>
+					<label for = "status">Change Status: </label>
+					<select name= "status" class= "form-control">
+				    	<option value = "2">Approve</option>
+				    	<option value = "1">Reject</option>
+					</select>
+					<br>
+					<div class="container">
+					  	<div class="row">
+					    	<div class="col text-center">
+			      				<input type="submit" class="btn btn-warning center-block" value="Change">
+			    			</div>
+			  			</div>
+					</div>
+				</div>
+			</form>
+			#end
 		</div>
 	</div>
 </div>

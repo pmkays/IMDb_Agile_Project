@@ -23,7 +23,7 @@ public class Account {
     private String organisationName; 
     private String organisationNumber;
     private int status;
-    private int procoId;
+    private String procoId;
 
     public Account(String un, String p) {
         username = un;
@@ -69,7 +69,7 @@ public class Account {
     
     public Account(String un, String p, String fn, String ln, String c, String g, 
     		String email, String role, String postCode, String year, 
-    		String organisationName, String organisationNumber, int status, int procoId) {
+    		String organisationName, String organisationNumber, int status, String procoId) {
     	this.username = un;
     	this.password = p;
     	this.firstName = fn;
@@ -83,7 +83,6 @@ public class Account {
     	this.organisationName = organisationName;
     	this.organisationNumber = organisationNumber;
     	this.status = status;
-    	this.procoId = procoId;
     	this.procoId = procoId;
     }
 
@@ -144,7 +143,7 @@ public class Account {
 		return status;
 	}
 	
-	public int getProcoId() {
+	public String getProcoId() {
 		return procoId;
 	}
 }

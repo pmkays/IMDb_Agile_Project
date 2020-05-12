@@ -23,6 +23,7 @@ public class ViewUtil {
         {
             Account account = AccountDAO.getUserByUsername(RequestUtil.getSessionCurrentUser(ctx));
             model.put("currentUserRole", account.getRole());
+            model.put("currentProcoID", account.getProcoId());
         }
         return model;
     }

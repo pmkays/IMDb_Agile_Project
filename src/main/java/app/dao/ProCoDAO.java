@@ -11,7 +11,7 @@ import app.model.ProductionCompany;
 
 public class ProCoDAO {
 	
-	public static ProductionCompany getProductionCompanyByID(int procoID) {
+	public static ProductionCompany getProductionCompanyByID(String procoID) {
 
 		List<ProductionCompany> productionCompanies = new ArrayList<>();
 

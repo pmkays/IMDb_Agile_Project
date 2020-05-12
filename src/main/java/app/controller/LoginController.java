@@ -35,6 +35,7 @@ public class LoginController {
             
             Account account = AccountDAO.getUserByUsername(ctx.sessionAttribute("currentUser"));
             ctx.sessionAttribute("currentUserRole", account.getRole());
+            ctx.sessionAttribute("currentProcoID", account.getProcoId());
             model.put("currentUserRole", account.getRole());
             model.put("authenticationSucceeded", true);
             model.put("currentUser", getQueryUsername(ctx));
