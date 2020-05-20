@@ -89,6 +89,7 @@
             </li>
       #else
             <li class="nav-item"><a href="/login" id="login">Log In</a></li>
+            <li class="nav-item"><a href="/account/new" id="join">Join</a></li>
       #end
     </ul>
    

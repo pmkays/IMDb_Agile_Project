@@ -60,7 +60,7 @@ a {
     margin: 0 10px;
 }
 
-#menu li a, #logout, #account, #login {
+#menu li a, #logout, #account, #login, #join {
     background: transparent;
     cursor: pointer;
     border: 0;
