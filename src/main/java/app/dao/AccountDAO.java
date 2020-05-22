@@ -82,9 +82,8 @@ public class AccountDAO {
 
 		try {
 			String sql;
-			
-			//procoId of 0 means that users aren't PCo so leave it as null value
-			if(acct.getProcoId().equals("0")) {
+
+			if(acct.getProcoId() == null) {
 				sql = String.format("INSERT INTO `account` (`username`, `password`, "
 						+ "email, country, gender, first_name, last_name, role, "
 						+ "post_code, organisation_name, organisation_number, `year`, `status`) VALUES "
@@ -98,7 +97,7 @@ public class AccountDAO {
 				sql = String.format("INSERT INTO `account` (`username`, `password`, "
 						+ "email, country, gender, first_name, last_name, role, "
 						+ "post_code, organisation_name, organisation_number, `year`, `status`, proco_id) VALUES "
-						+ "('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d, %d);", 
+						+ "('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d, %s);",
 						acct.getUsername(), acct.getPassword(), 
 						acct.getEmail(), acct.getCountry(), acct.getGender(), 
 						acct.getFirstName(), acct.getLastName(), acct.getRole(), 
