@@ -11,12 +11,11 @@ import app.model.ProductionCompany;
 
 public class ProCoDAO {
 	
-	public static ProductionCompany getProductionCompanyByID(String procoID) {
+	public static ProductionCompany getProductionCompanyByID(String procoID) throws Exception {
 
 		List<ProductionCompany> productionCompanies = new ArrayList<>();
 
-        try {
-            String sql = "SELECT * FROM production_company WHERE proco_id =" + procoID;
+            String sql = "SELECT * FROM production_company WHERE proco_id ='" + procoID +"';";
 
             Connection connection = DatabaseUtils.connectToDatabase();
             Statement statement = connection.createStatement();
@@ -32,10 +31,6 @@ public class ProCoDAO {
             }
 
             DatabaseUtils.closeConnection(connection);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
 
         if(!productionCompanies.isEmpty()) return productionCompanies.get(0);
         return null;

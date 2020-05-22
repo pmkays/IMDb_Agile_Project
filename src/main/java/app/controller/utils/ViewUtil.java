@@ -22,8 +22,12 @@ public class ViewUtil {
         if(RequestUtil.getSessionCurrentUser(ctx) != null)
         {
             Account account = AccountDAO.getUserByUsername(RequestUtil.getSessionCurrentUser(ctx));
+            if(account.getProcoId() == null) {
+               model.put("currentProcoID", 0);
+            }else {
+            	model.put("currentProcoID", account.getProcoId());
+            }
             model.put("currentUserRole", account.getRole());
-            model.put("currentProcoID", account.getProcoId());
         }
         return model;
     }

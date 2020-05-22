@@ -49,8 +49,8 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('caramel6','$2a$10$h.dl5J86rGH7I8bD9bZeZeci0pDt0.VwFTGujlnEaZXPf/q7vM5wO','caramelwilson@gmail.com','Australia','Female','Cara','Wilson', 'general', null, null, null, null, null, null);
-INSERT INTO `account` VALUES ('admin','$2a$10$h.dl5J86rGH7I8bD9bZeZerflzEsjpOgodpk5A70Pq0n8fWRejri2','admin@hotmail.com','Australia','Male','Ian','Penguin', 'Admin', null, null, null, null, null, null);
+INSERT INTO `account` VALUES ('caramel6','$2a$10$h.dl5J86rGH7I8bD9bZeZeci0pDt0.VwFTGujlnEaZXPf/q7vM5wO','caramelwilson@gmail.com','Australia','Female','Cara','Wilson', 'general', null, null, null, null, null, 2);
+INSERT INTO `account` VALUES ('admin','$2a$10$h.dl5J86rGH7I8bD9bZeZerflzEsjpOgodpk5A70Pq0n8fWRejri2','admin@hotmail.com','Australia','Male','Ian','Penguin', 'Admin', null, null, null, null, null, 2);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -1,5 +1,6 @@
 package app.controller;
 
+import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,7 @@ public class AccountController {
         		procoId = ctx.formParam("organisation_name");
         		orgName = ProCoDAO.getProductionCompanyByID(procoId).getName();
         	}catch(Exception e) {
+        		procoId = null;
         		orgName = ctx.formParam("organisation_name");
         	}
         }else {
